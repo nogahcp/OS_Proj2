@@ -12,6 +12,8 @@
 		250C7970234F331C00D0E10C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250C796E234F331C00D0E10C /* Main.storyboard */; };
 		250C7972234F331D00D0E10C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 250C7971234F331D00D0E10C /* Assets.xcassets */; };
 		250C7975234F331D00D0E10C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250C7973234F331D00D0E10C /* LaunchScreen.storyboard */; };
+		250C797E234F4D8300D0E10C /* SetGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250C797D234F4D8300D0E10C /* SetGameModel.swift */; };
+		250C7980234F4D9A00D0E10C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250C797F234F4D9A00D0E10C /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		250C7971234F331D00D0E10C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		250C7974234F331D00D0E10C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		250C7976234F331D00D0E10C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		250C797D234F4D8300D0E10C /* SetGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameModel.swift; sourceTree = "<group>"; };
+		250C797F234F4D9A00D0E10C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 				250C796C234F331C00D0E10C /* ViewController.swift */,
 				250C796E234F331C00D0E10C /* Main.storyboard */,
 				250C7976234F331D00D0E10C /* Info.plist */,
+				250C797F234F4D9A00D0E10C /* Card.swift */,
+				250C797D234F4D8300D0E10C /* SetGameModel.swift */,
 			);
 			path = SetGame;
 			sourceTree = "<group>";
@@ -145,6 +151,8 @@
 			files = (
 				250C796D234F331C00D0E10C /* ViewController.swift in Sources */,
 				250C796B234F331C00D0E10C /* AppDelegate.swift in Sources */,
+				250C797E234F4D8300D0E10C /* SetGameModel.swift in Sources */,
+				250C7980234F4D9A00D0E10C /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
