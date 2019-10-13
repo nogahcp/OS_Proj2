@@ -12,13 +12,24 @@ struct SetGameModel {
     var stackCards: [Card]
     var cardOnBoard: [Card?]
     var selectedCards: [Card]
-    var choosenCardsState: CardState
+    var choosenCardsState: CardState {
+        get {
+            if self.selectedCards.count < 3 {
+                return CardState.chosen
+            }
+            else if self.isSet() {
+                return CardState.match
+            }
+            else {
+                return CardState.mismatch
+            }
+        }
+    }
     
     init() {
         self.stackCards = [Card]()
         self.cardOnBoard = [Card?]()
         self.selectedCards = [Card]()
-        self.choosenCardsState = CardState.notChosen
         createStack()
         fillBoard()
     }
@@ -50,40 +61,40 @@ struct SetGameModel {
         }
     }
     
-//    mutating func cardSelected(cardIndex: Int) {
-//        //case1: three card already selected
-//        if self.selectedCards.count == 3 {
-//            //if set - put new cards
-//            if self.choosenCardsState == CardState.match {
-//
-//            }
-//        }
-//        //case2: selected card already chosen-unchose
-//        else if let index = self.selectedCards.firstIndex(of: self.cardOnBoard[cardIndex]) {
-//            self.selectedCards.remove(at: index)
-//        }
-//        //case3: first/second card selected - add card to selected
-//        else if self.selectedCards.count < 2 {
-//            self.selectedCards.append(self.cardOnBoard[cardIndex])
-//        }
-//        //case4: third card selected - add to selected and check if set
-//        else if self.selectedCards.count == 2{
-//            self.selectedCards.append(self.cardOnBoard[cardIndex])
-//            self.isSet()
-//        }
-//    }
-//
-//    mutating func isSet() -> Bool{
-//        //check color
-//        if (self.selectedCards[0].color == self.selectedCards[1].color && self.selectedCards[1].color == self.selectedCards[2].color) || (self.selectedCards[0].color != self.selectedCards[1].color && self.selectedCards[1].color != self.selectedCards[2].color && self.selectedCards[2].color != self.selectedCards[1].color)
-//        {
-//            //TODO - check shape, number and filling
-//            return true
-//        }
-//        else {
-//            return false
-//        }
-//    }
+    mutating func cardSelected(cardIndex: Int) {
+        if let currCard = self.cardOnBoard[cardIndex] {
+            //deselect card
+            if self.selectedCards.contains(currCard) && self.selectedCards.count < 3 {
+                self.selectedCards.remove(element: currCard)
+            }
+            //new card selected
+            else if self.selectedCards.count < 3 {
+                self.selectedCards.append(currCard)
+            }
+            //new set start
+            else if self.selectedCards.count == 3 && !self.selectedCards.contains(currCard) {
+                
+            }
+        }
+    }
+
+    private func isSet() -> Bool{
+        //check all attributes using checkAttributeForSet function
+        if self.checkAttributeForSet(value1: self.selectedCards[0].color, value2: self.selectedCards[1].color, value3: self.selectedCards[2].color),
+            self.checkAttributeForSet(value1: self.selectedCards[0].filling, value2: self.selectedCards[1].filling, value3: self.selectedCards[2].filling),
+            self.checkAttributeForSet(value1: self.selectedCards[0].shape, value2: self.selectedCards[1].shape, value3: self.selectedCards[2].shape),
+            self.checkAttributeForSet(value1:self.selectedCards[0].shapeCount, value2: self.selectedCards[1].shapeCount, value3: self.selectedCards[2].shapeCount)
+        {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    private func checkAttributeForSet(value1: CardProperty, value2: CardProperty, value3: CardProperty) -> Bool {
+        return (value1 == value2 && value2 == value3) || (value1 != value2 && value2 != value3 && value3 != value2)
+    }
     
 }
 

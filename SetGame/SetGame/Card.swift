@@ -13,7 +13,7 @@ class Card: Equatable {
     
     var identifier: Int
     static var runID = 0 //run ID for new cards
-    var cardState: CardState
+    //var cardState: CardState
     var shape: CardProperty
     var color: CardProperty
     var shapeCount: CardProperty
@@ -22,7 +22,6 @@ class Card: Equatable {
     init(shape: CardProperty, color: CardProperty, shapeCount: CardProperty, filling: CardProperty) {
         self.identifier = Card.runID
         Card.runID += 1
-        self.cardState = CardState.notChosen
         self.shape = shape
         self.color = color
         self.shapeCount = shapeCount
@@ -40,7 +39,6 @@ enum CardState {
     case chosen
     case match
     case mismatch
-    case notChosen
 }
 
 //enum represent card property (shape/color/filling/number)

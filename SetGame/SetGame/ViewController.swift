@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     let cardFillingDict = [CardProperty.p1 : 0, CardProperty.p2 : 0.15, CardProperty.p3: 1]
     let cardShapeDict = [CardProperty.p1 : "▲", CardProperty.p2 : "●", CardProperty.p3: "■"]
     let cardShapeCountDict = [CardProperty.p1 : 1, CardProperty.p2 : 2, CardProperty.p3: 3]
+    let borderColorDict : [CardState : CGColor] = [CardState.chosen : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), CardState.match : #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), CardState.mismatch : #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel() {
+        //set cards color, filling and shape
         for index in setGame.cardOnBoard.indices {
             if setGame.cardOnBoard[index] == nil {
                 self.cardsOnBoard[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
@@ -39,7 +41,18 @@ class ViewController: UIViewController {
                 let atriText = NSAttributedString(string: getCardString(card: currCard), attributes: attributes)
                 self.cardsOnBoard[index].setAttributedTitle(atriText, for: UIControl.State.normal)
                 self.cardsOnBoard[index].backgroundColor=#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                
+                //set card outline
+                if setGame.selectedCards.contains(currCard) {
+                    self.cardsOnBoard[index].layer.borderWidth = 2.0
+                    self.cardsOnBoard[index].layer.borderColor = borderColorDict[setGame.choosenCardsState]
+                }
+                else {
+                    self.cardsOnBoard[index].layer.borderWidth = 0
+                }
             }
+            
+            
         }
     }
     
@@ -52,10 +65,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonTouched(_ sender: Any) {
-        if let cardNumber = cardsOnBoard.firstIndex(of: sender as! UIButton)
+        if let cardIndex = cardsOnBoard.firstIndex(of: sender as! UIButton)
         {
-//            setGame.cardSelected(cardIndex: cardNumber)
-//            updateViewFromModel()
+            setGame.cardSelected(cardIndex: cardIndex)
+            updateViewFromModel()
         }
         else
         {
