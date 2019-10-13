@@ -18,19 +18,22 @@ class ViewController: UIViewController {
     let cardShapeCountDict = [CardProperty.p1 : 1, CardProperty.p2 : 2, CardProperty.p3: 3]
     let borderColorDict : [CardState : CGColor] = [CardState.chosen : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), CardState.match : #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), CardState.mismatch : #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)]
     
+    @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateViewFromModel()
     }
     
     func updateViewFromModel() {
-        //set cards color, filling and shape
+        //set cards
         for index in setGame.cardOnBoard.indices {
             if setGame.cardOnBoard[index] == nil {
                 self.cardsOnBoard[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
                 let emptyText = NSAttributedString(string: "   ")
                 self.cardsOnBoard[index].setAttributedTitle(emptyText, for: UIControl.State.normal)
             }
+            //set cards color, filling, shape and border
             else {
                 let currCard = setGame.cardOnBoard[index]!
                 let attributes: [NSAttributedString.Key : Any] = [
@@ -51,9 +54,10 @@ class ViewController: UIViewController {
                     self.cardsOnBoard[index].layer.borderWidth = 0
                 }
             }
-            
-            
         }
+        //set button: 3 more cards
+        self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0) && (setGame.countCardsOnBoard < 24)
+        
     }
     
     private func getCardString(card: Card) -> String{
@@ -65,15 +69,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonTouched(_ sender: Any) {
-        if let cardIndex = cardsOnBoard.firstIndex(of: sender as! UIButton)
-        {
+        if let cardIndex = cardsOnBoard.firstIndex(of: sender as! UIButton) {
             setGame.cardSelected(cardIndex: cardIndex)
             updateViewFromModel()
         }
-        else
-        {
+        else {
             print("error: card was not in cards")
         }
+    }
+    
+    @IBAction func addThreeCards(_ sender: Any) {
+        setGame.addThreeCardsButtonPressed()
+        self.updateViewFromModel()
     }
 }
 

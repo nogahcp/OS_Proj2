@@ -25,6 +25,17 @@ struct SetGameModel {
             }
         }
     }
+    var countCardsOnBoard: Int {
+        get {
+            var res = 0
+            for card in self.cardOnBoard {
+                if card != nil {
+                    res += 1
+                }
+            }
+            return res
+        }
+    }
     
     init() {
         self.stackCards = [Card]()
@@ -72,12 +83,60 @@ struct SetGameModel {
                 self.selectedCards.append(currCard)
             }
             //new set start
-            else if self.selectedCards.count == 3 && !self.selectedCards.contains(currCard) {
-                
+            else if self.selectedCards.count == 3 {
+                //add new cards from stack to board
+                if self.choosenCardsState == CardState.match {
+                    for card in self.selectedCards {
+                        if let index = self.cardOnBoard.firstIndex(of: card) {
+                            self.cardOnBoard[index] = nil
+                        }
+                    }
+                    self.selectedCards = [Card]()
+                    self.addCardsToBoard()
+                    
+                    if !self.selectedCards.contains(currCard) {
+                        self.selectedCards.append(currCard)
+                    }
+                }
+                //choose new cards
+                else {
+                    self.selectedCards = [Card]()
+                    self.selectedCards.append(currCard)
+                }
             }
         }
     }
 
+    //add random 3 cards from stack to board
+    mutating private func addCardsToBoard() {
+        var countAddedCards = 0
+        if self.stackCards.count > 0 {
+            for index in self.cardOnBoard.indices {
+                if self.cardOnBoard[index] == nil {
+                    self.cardOnBoard[index] = self.stackCards.randomElement()
+                    self.stackCards.remove(element: self.cardOnBoard[index]!)
+                    countAddedCards += 1
+                }
+                if countAddedCards == 3 {
+                    break
+                }
+            }
+        }
+    }
+    
+    //check if selected cards are set -> replace them, else add three cards
+    mutating func addThreeCardsButtonPressed() {
+        if self.choosenCardsState == CardState.match {
+            for card in self.selectedCards {
+                if let index = self.cardOnBoard.firstIndex(of: card) {
+                    self.cardOnBoard[index] = nil
+                }
+            }
+            self.selectedCards = [Card]()
+        }
+        self.addCardsToBoard()
+    }
+    
     private func isSet() -> Bool{
         //check all attributes using checkAttributeForSet function
         if self.checkAttributeForSet(value1: self.selectedCards[0].color, value2: self.selectedCards[1].color, value3: self.selectedCards[2].color),

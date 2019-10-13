@@ -318,16 +318,37 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CxW-MM-cLt">
+                                <rect key="frame" x="21" y="616" width="188" height="53"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Deal 3 More Cards">
+                                            <attributes>
+                                                <font key="NSFont" metaFont="system" size="20"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="addThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P8q-xj-Kht"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VUN-B2-MTc" secondAttribute="trailing" constant="16" id="MFK-qo-qrm"/>
+                            <constraint firstItem="CxW-MM-cLt" firstAttribute="top" relation="lessThanOrEqual" secondItem="VUN-B2-MTc" secondAttribute="bottom" constant="100" id="WjS-3V-WIg"/>
                             <constraint firstItem="VUN-B2-MTc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="efh-Pz-Xec"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="VUN-B2-MTc" secondAttribute="bottom" constant="270" id="xCz-1D-H4Y"/>
+                            <constraint firstItem="CxW-MM-cLt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="zIG-OL-iOP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="dealThreeMoreCardsButton" destination="CxW-MM-cLt" id="4Jp-WG-j4c"/>
                         <outletCollection property="cardsOnBoard" destination="FQl-9E-GVj" collectionClass="NSMutableArray" id="VpN-8E-Qy1"/>
                         <outletCollection property="cardsOnBoard" destination="sTU-jr-rKv" collectionClass="NSMutableArray" id="rRB-jj-yim"/>
                         <outletCollection property="cardsOnBoard" destination="6iC-Pv-bfI" collectionClass="NSMutableArray" id="hMz-9H-uiS"/>
