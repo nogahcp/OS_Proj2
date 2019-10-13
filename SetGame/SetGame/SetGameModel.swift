@@ -142,8 +142,7 @@ struct SetGameModel {
         if self.checkAttributeForSet(value1: self.selectedCards[0].color, value2: self.selectedCards[1].color, value3: self.selectedCards[2].color),
             self.checkAttributeForSet(value1: self.selectedCards[0].filling, value2: self.selectedCards[1].filling, value3: self.selectedCards[2].filling),
             self.checkAttributeForSet(value1: self.selectedCards[0].shape, value2: self.selectedCards[1].shape, value3: self.selectedCards[2].shape),
-            self.checkAttributeForSet(value1:self.selectedCards[0].shapeCount, value2: self.selectedCards[1].shapeCount, value3: self.selectedCards[2].shapeCount)
-        {
+            self.checkAttributeForSet(value1:self.selectedCards[0].shapeCount, value2: self.selectedCards[1].shapeCount, value3: self.selectedCards[2].shapeCount) {
             return true
         }
         else {
@@ -160,8 +159,7 @@ struct SetGameModel {
 //extention - remove element from array
 extension Array where Iterator.Element : Equatable {
     mutating func remove(element: Element) {
-        if let index = self.firstIndex(of: element)
-        {
+        if let index = self.firstIndex(of: element) {
             self.remove(at: index)
         }
     }

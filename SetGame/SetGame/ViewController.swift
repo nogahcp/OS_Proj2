@@ -32,6 +32,7 @@ class ViewController: UIViewController {
                 self.cardsOnBoard[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
                 let emptyText = NSAttributedString(string: "   ")
                 self.cardsOnBoard[index].setAttributedTitle(emptyText, for: UIControl.State.normal)
+                self.cardsOnBoard[index].layer.borderWidth = 0
             }
             //set cards color, filling, shape and border
             else {
