@@ -74,48 +74,52 @@ struct SetGameModel {
     }
     
     mutating func cardSelected(cardIndex: Int) {
-        if let currCard = self.cardOnBoard[cardIndex] {
-            //deselect card
-            if self.selectedCards.contains(currCard) && self.selectedCards.count < 3 {
-                self.selectedCards.remove(element: currCard)
-                self.score -= 1
-            }
-            //new card selected
-            else if self.selectedCards.count < 3 {
-                self.selectedCards.append(currCard)
-                if self.selectedCards.count == 3 {
-                    if self.isSet() {
-                        self.score += 3
-                    }
-                    else {
-                        self.score -= 5
-                    }
+        guard let currCard = self.cardOnBoard[cardIndex] else {
+            print("cardIndex: \(cardIndex) is an empty card")
+            return
+        }
+        
+        //deselect card
+        if self.selectedCards.contains(currCard) && self.selectedCards.count < 3 {
+            self.selectedCards.remove(element: currCard)
+            self.score -= 1
+        }
+        //new card selected
+        else if self.selectedCards.count < 3 {
+            self.selectedCards.append(currCard)
+            if self.selectedCards.count == 3 {
+                if self.isSet() {
+                    self.score += 3
                 }
-            }
-            //new set start when 3 cards already selected
-            else if self.selectedCards.count == 3 {
-                //add new cards from stack to board
-                if self.choosenCardsState == CardState.match {
-                    //if currCard is in selected no need to select it again (part of complete set)
-                    var tempSelected = [Card]()
-                    if !self.selectedCards.contains(currCard) {
-                        tempSelected.append(currCard)
-                    }
-                    for card in self.selectedCards {
-                        if let index = self.cardOnBoard.firstIndex(of: card) {
-                            self.cardOnBoard[index] = nil
-                        }
-                    }
-                    self.selectedCards = tempSelected
-                    self.addCardsToBoard()
-                }
-                //choose new cards
                 else {
-                    self.selectedCards = [Card]()
-                    self.selectedCards.append(currCard)
+                    self.score -= 5
                 }
             }
         }
+        //new set start when 3 cards already selected
+        else if self.selectedCards.count == 3 {
+            //add new cards from stack to board
+            if self.choosenCardsState == CardState.match {
+                //if currCard is in selected no need to select it again (part of complete set)
+                var tempSelected = [Card]()
+                if !self.selectedCards.contains(currCard) {
+                    tempSelected.append(currCard)
+                }
+                for card in self.selectedCards {
+                    if let index = self.cardOnBoard.firstIndex(of: card) {
+                        self.cardOnBoard[index] = nil
+                    }
+                }
+                self.selectedCards = tempSelected
+                self.addCardsToBoard()
+            }
+            //choose new cards
+            else {
+                self.selectedCards = [Card]()
+                self.selectedCards.append(currCard)
+            }
+        }
+        
     }
 
     //add random 3 cards from stack to board

@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     func updateViewFromModel() {
         //set cards
         for index in setGame.cardOnBoard.indices {
+            //places on board not fill with cards (if less than 24 cards on board)
             if setGame.cardOnBoard[index] == nil {
                 self.cardsOnBoard[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
                 let emptyText = NSAttributedString(string: "   ")
