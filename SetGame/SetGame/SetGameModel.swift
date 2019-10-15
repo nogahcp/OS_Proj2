@@ -13,19 +13,20 @@ struct SetGameModel {
     var cardOnBoard: [Card?]
     var selectedCards: [Card]
     var score = 0
-    var choosenCardsState: CardState {
-        get {
-            if self.selectedCards.count < 3 {
-                return CardState.chosen
-            }
-            else if self.isSet() {
-                return CardState.match
-            }
-            else {
-                return CardState.mismatch
-            }
-        }
-    }
+    var choosenCardsState = CardState.chosen
+//    {
+//        get {
+//            if self.selectedCards.count < 3 {
+//                return CardState.chosen
+//            }
+//            else if self.isSet() {
+//                return CardState.match
+//            }
+//            else {
+//                return CardState.mismatch
+//            }
+//        }
+//    }
     var countCardsOnBoard: Int {
         get {
             var res = 0
@@ -74,6 +75,7 @@ struct SetGameModel {
     }
     
     mutating func cardSelected(cardIndex: Int) {
+        //if card selected is place on board without a card
         guard let currCard = self.cardOnBoard[cardIndex] else {
             print("cardIndex: \(cardIndex) is an empty card")
             return
@@ -82,6 +84,7 @@ struct SetGameModel {
         //deselect card
         if self.selectedCards.contains(currCard) && self.selectedCards.count < 3 {
             self.selectedCards.remove(element: currCard)
+            self.choosenCardsState = CardState.chosen
             self.score -= 1
         }
         //new card selected
@@ -90,9 +93,11 @@ struct SetGameModel {
             if self.selectedCards.count == 3 {
                 if self.isSet() {
                     self.score += 3
+                    self.choosenCardsState = CardState.match
                 }
                 else {
                     self.score -= 5
+                    self.choosenCardsState = CardState.mismatch
                 }
             }
         }
@@ -118,6 +123,7 @@ struct SetGameModel {
                 self.selectedCards = [Card]()
                 self.selectedCards.append(currCard)
             }
+            self.choosenCardsState = CardState.chosen
         }
         
     }
