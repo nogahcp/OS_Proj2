@@ -8,7 +8,6 @@
 
 import Foundation
 
-//TODO: Equatable
 class Card: Equatable {
     
     var identifier: Int

@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     let borderColorDict : [CardState : CGColor] = [CardState.chosen : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), CardState.match : #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), CardState.mismatch : #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)]
     
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
+    @IBOutlet weak var scoreText: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,11 +57,13 @@ class ViewController: UIViewController {
                 }
             }
         }
-        //set button: 3 more cards
+        //set button "3 more cards" access
         self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0) && (setGame.countCardsOnBoard < 24)
-        
+        //set score text
+        self.scoreText.text = "Score: \(setGame.score)"
     }
     
+    //return card shapes as string
     private func getCardString(card: Card) -> String{
         var res = ""
         for _ in 0..<(self.cardShapeCountDict[card.shapeCount] ?? 0) {
@@ -69,6 +72,7 @@ class ViewController: UIViewController {
         return res
     }
     
+    //card button touched
     @IBAction func buttonTouched(_ sender: Any) {
         if let cardIndex = cardsOnBoard.firstIndex(of: sender as! UIButton) {
             setGame.cardSelected(cardIndex: cardIndex)
@@ -81,6 +85,11 @@ class ViewController: UIViewController {
     
     @IBAction func addThreeCards(_ sender: Any) {
         setGame.addThreeCardsButtonPressed()
+        self.updateViewFromModel()
+    }
+    
+    @IBAction func NewGame(_ sender: Any) {
+        self.setGame = SetGameModel()
         self.updateViewFromModel()
     }
 }

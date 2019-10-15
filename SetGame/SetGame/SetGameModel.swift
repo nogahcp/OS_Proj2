@@ -12,6 +12,7 @@ struct SetGameModel {
     var stackCards: [Card]
     var cardOnBoard: [Card?]
     var selectedCards: [Card]
+    var score = 0
     var choosenCardsState: CardState {
         get {
             if self.selectedCards.count < 3 {
@@ -77,10 +78,19 @@ struct SetGameModel {
             //deselect card
             if self.selectedCards.contains(currCard) && self.selectedCards.count < 3 {
                 self.selectedCards.remove(element: currCard)
+                self.score -= 1
             }
             //new card selected
             else if self.selectedCards.count < 3 {
                 self.selectedCards.append(currCard)
+                if self.selectedCards.count == 3 {
+                    if self.isSet() {
+                        self.score += 3
+                    }
+                    else {
+                        self.score -= 5
+                    }
+                }
             }
             //new set start
             else if self.selectedCards.count == 3 {
