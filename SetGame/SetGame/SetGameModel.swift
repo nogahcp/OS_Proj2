@@ -149,20 +149,15 @@ struct SetGameModel {
     }
     
     private func isSet() -> Bool{
-        //check all attributes using checkAttributeForSet function
-        if self.checkAttributeForSet(value1: self.selectedCards[0].color, value2: self.selectedCards[1].color, value3: self.selectedCards[2].color),
-            self.checkAttributeForSet(value1: self.selectedCards[0].filling, value2: self.selectedCards[1].filling, value3: self.selectedCards[2].filling),
-            self.checkAttributeForSet(value1: self.selectedCards[0].shape, value2: self.selectedCards[1].shape, value3: self.selectedCards[2].shape),
-            self.checkAttributeForSet(value1:self.selectedCards[0].shapeCount, value2: self.selectedCards[1].shapeCount, value3: self.selectedCards[2].shapeCount) {
-            return true
-        }
-        else {
-            return false
-        }
+        return compareCardsValues(by: {
+            let b1 = ($0 == $1 && $1 == $2)
+            let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
+            return b1 || b2 })
     }
     
-    private func checkAttributeForSet(value1: CardProperty, value2: CardProperty, value3: CardProperty) -> Bool {
-        return (value1 == value2 && value2 == value3) || (value1 != value2 && value2 != value3 && value3 != value1)
+    //compare all selected cards attributes (color, filling, shape, shapeCount) by boolean comparison function
+    private func compareCardsValues(by comprison: (CardProperty, CardProperty, CardProperty) -> Bool) -> Bool {
+        return comprison(self.selectedCards[0].color, self.selectedCards[1].color, self.selectedCards[2].color) && comprison(self.selectedCards[0].filling, self.selectedCards[1].filling, self.selectedCards[2].filling) && comprison(self.selectedCards[0].shape, self.selectedCards[1].shape, self.selectedCards[2].shape) && comprison(self.selectedCards[0].shapeCount, self.selectedCards[1].shapeCount, self.selectedCards[2].shapeCount)
     }
     
 }
