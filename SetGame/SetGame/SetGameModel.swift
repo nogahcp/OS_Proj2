@@ -92,21 +92,22 @@ struct SetGameModel {
                     }
                 }
             }
-            //new set start
+            //new set start when 3 cards already selected
             else if self.selectedCards.count == 3 {
                 //add new cards from stack to board
                 if self.choosenCardsState == CardState.match {
+                    //if currCard is in selected no need to select it again (part of complete set)
+                    var tempSelected = [Card]()
+                    if !self.selectedCards.contains(currCard) {
+                        tempSelected.append(currCard)
+                    }
                     for card in self.selectedCards {
                         if let index = self.cardOnBoard.firstIndex(of: card) {
                             self.cardOnBoard[index] = nil
                         }
                     }
-                    self.selectedCards = [Card]()
+                    self.selectedCards = tempSelected
                     self.addCardsToBoard()
-                    
-                    if !self.selectedCards.contains(currCard) {
-                        self.selectedCards.append(currCard)
-                    }
                 }
                 //choose new cards
                 else {
@@ -161,7 +162,7 @@ struct SetGameModel {
     }
     
     private func checkAttributeForSet(value1: CardProperty, value2: CardProperty, value3: CardProperty) -> Bool {
-        return (value1 == value2 && value2 == value3) || (value1 != value2 && value2 != value3 && value3 != value2)
+        return (value1 == value2 && value2 == value3) || (value1 != value2 && value2 != value3 && value3 != value1)
     }
     
 }
