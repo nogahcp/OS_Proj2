@@ -82,6 +82,10 @@ class ViewController: UIViewController {
         else {
             print("error: card was not in cards")
         }
+        //if only 3 card and a match - game ended
+        if setGame.countCardsOnBoard == 3 && setGame.choosenCardsState == .match {
+            self.gameEnded()
+        }
     }
     
     @IBAction func addThreeCards(_ sender: Any) {
@@ -99,11 +103,24 @@ class ViewController: UIViewController {
         var indexes = setGame.getHint()
         self.updateViewFromModel()
         if indexes != nil {
-            self.cardsOnBoard![indexes!.0].layer.borderWidth = 2.0
+            self.cardsOnBoard![indexes!.0].layer.borderWidth = 3.0
             self.cardsOnBoard![indexes!.0].layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
-            self.cardsOnBoard![indexes!.1].layer.borderWidth = 2.0
+            self.cardsOnBoard![indexes!.1].layer.borderWidth = 3.0
             self.cardsOnBoard![indexes!.1].layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
         }
+    }
+    
+    //pop alert when game is ended
+    func gameEnded() {
+        let alert = UIAlertController(title: "Game Ended!", message: "your score: \(setGame.score)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { action in
+            self.setGame = SetGameModel()
+            self.updateViewFromModel()
+        }))
+
+        self.present(alert, animated: true)
+
     }
 }
 

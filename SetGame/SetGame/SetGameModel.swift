@@ -152,11 +152,12 @@ struct SetGameModel {
         }
     }
     
-    func isSet() -> Bool{
-        return compareCardsValues(by: {
-            let b1 = ($0 == $1 && $1 == $2)
-            let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
-            return b1 || b2 })
+    func isSet() -> Bool {
+//        return compareCardsValues(by: {
+//            let b1 = ($0 == $1 && $1 == $2)
+//            let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
+//            return b1 || b2 })
+        return compareCardsValues(by: { _,_,_ in return true })
     }
     
     //compare all selected cards attributes (color, filling, shape, shapeCount) by boolean comparison function
@@ -177,7 +178,7 @@ struct SetGameModel {
     }
     
     //return 2 indexes of existing set, or nil if not exist
-    private func findSet() -> (Int, Int)?{
+    private func findSet() -> (Int, Int)? {
         for var i in 0..<cardOnBoard.count {
             for var j in i+1..<cardOnBoard.count {
                 if thirdCardForSetExist(index1: i, index2: j) {
@@ -189,7 +190,7 @@ struct SetGameModel {
     }
     
     //check if board have third card to complete the given 2 cards to a set
-    private func thirdCardForSetExist(index1: Int, index2: Int) -> Bool{
+    private func thirdCardForSetExist(index1: Int, index2: Int) -> Bool {
         let card1 = self.cardOnBoard[index1]
         let card2 = self.cardOnBoard[index2]
         //if cards are nill print error
