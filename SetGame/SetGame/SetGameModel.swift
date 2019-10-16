@@ -135,6 +135,12 @@ struct SetGameModel {
     
     //check if selected cards are set -> replace them, else add three cards
     mutating func addThreeCardsButtonPressed() {
+        self.clearSelectedSet()
+        self.addCardsToBoard()
+    }
+    
+    //if choosen cards are set - clear selected and change state to chosen
+    private mutating func clearSelectedSet() {
         if self.choosenCardsState == CardState.match {
             for card in self.selectedCards {
                 if let index = self.cardOnBoard.firstIndex(of: card) {
@@ -142,11 +148,11 @@ struct SetGameModel {
                 }
             }
             self.selectedCards = [Card]()
+            self.choosenCardsState = .chosen
         }
-        self.addCardsToBoard()
     }
     
-     func isSet() -> Bool{
+    func isSet() -> Bool{
         return compareCardsValues(by: {
             let b1 = ($0 == $1 && $1 == $2)
             let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
@@ -157,12 +163,71 @@ struct SetGameModel {
     private func compareCardsValues(by comprison: (CardProperty, CardProperty, CardProperty) -> Bool) -> Bool {
         return comprison(self.selectedCards[0].color, self.selectedCards[1].color, self.selectedCards[2].color) && comprison(self.selectedCards[0].filling, self.selectedCards[1].filling, self.selectedCards[2].filling) && comprison(self.selectedCards[0].shape, self.selectedCards[1].shape, self.selectedCards[2].shape) && comprison(self.selectedCards[0].shapeCount, self.selectedCards[1].shapeCount, self.selectedCards[2].shapeCount)
     }
-//    
-//    func findSet() {
-//        for var 
-//    }
+    
+    //return 2 indexes of existing set, or nil if not exist
+    mutating func getHint() -> (Int, Int)? {
+        //if selected card already a match - first replace selected cards
+        if self.choosenCardsState == .match {
+            self.clearSelectedSet()
+            self.addCardsToBoard()
+        }
+        //reduce score by one
+        self.score -= 1
+        return self.findSet()
+    }
+    
+    //return 2 indexes of existing set, or nil if not exist
+    private func findSet() -> (Int, Int)?{
+        for var i in 0..<cardOnBoard.count {
+            for var j in i+1..<cardOnBoard.count {
+                if thirdCardForSetExist(index1: i, index2: j) {
+                    return (i, j)
+                }
+            }
+        }
+        return nil
+    }
+    
+    //check if board have third card to complete the given 2 cards to a set
+    private func thirdCardForSetExist(index1: Int, index2: Int) -> Bool{
+        let card1 = self.cardOnBoard[index1]
+        let card2 = self.cardOnBoard[index2]
+        //if cards are nill print error
+        guard card1 != nil && card2 != nil else {
+            //print("cardIndex: \(index1), \(index2) is an empty card")
+            return false
+        }
+        //create complete card for set
+        let shape = thirdPropertyForSet(prop1: card1!.shape, prop2: card2!.shape)
+        let color = thirdPropertyForSet(prop1: card1!.color, prop2: card2!.color)
+        let shapeCount = thirdPropertyForSet(prop1: card1!.shapeCount, prop2: card2!.shapeCount)
+        let filling = thirdPropertyForSet(prop1: card1!.filling, prop2: card2!.filling)
+        let card3 = Card(shape: shape, color: color, shapeCount: shapeCount, filling: filling)
+        
+        return self.cardOnBoard.contains(card3)
+    }
+    
+    //return third property for given 2 to complete a set
+    private func thirdPropertyForSet(prop1: CardProperty, prop2: CardProperty) -> CardProperty
+    {
+        //return the same property for "same" set
+        if prop1 == prop2 {
+            return prop1
+        }
+        //find the third property for "different" set
+        else {
+            let propertyValues = CardProperty.allCases
+            for p in propertyValues {
+                if p != prop1 && p != prop2 {
+                    return p
+                }
+            }
+        }
+        return prop1
+    }
     
 }
+
 
 //extention - remove element from array
 extension Array where Iterator.Element : Equatable {

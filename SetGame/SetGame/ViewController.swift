@@ -93,5 +93,17 @@ class ViewController: UIViewController {
         self.setGame = SetGameModel()
         self.updateViewFromModel()
     }
+    
+    //if there is set - colol 2 cards in yellow
+    @IBAction func getHint(_ sender: Any) {
+        var indexes = setGame.getHint()
+        self.updateViewFromModel()
+        if indexes != nil {
+            self.cardsOnBoard![indexes!.0].layer.borderWidth = 2.0
+            self.cardsOnBoard![indexes!.0].layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+            self.cardsOnBoard![indexes!.1].layer.borderWidth = 2.0
+            self.cardsOnBoard![indexes!.1].layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+        }
+    }
 }
 
