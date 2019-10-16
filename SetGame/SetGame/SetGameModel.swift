@@ -29,7 +29,7 @@ struct SetGameModel {
     
     init() {
         self.stackCards = [Card]()
-        self.cardOnBoard = [Card?]()
+        self.cardOnBoard = [Card?](repeating: nil, count: 24)
         self.selectedCards = [Card]()
         createStack()
         fillBoard()
@@ -53,12 +53,8 @@ struct SetGameModel {
     //add 12 cards from stack to board
     mutating func fillBoard() {
         for index in 0..<12 {
-            self.cardOnBoard.append(self.stackCards.randomElement())
+            self.cardOnBoard[index] = (self.stackCards.randomElement())
             self.stackCards.remove(element: self.cardOnBoard[index]!)
-        }
-        
-        for _ in 12..<24 {
-            self.cardOnBoard.append(nil)
         }
     }
     
@@ -157,7 +153,7 @@ struct SetGameModel {
             let b1 = ($0 == $1 && $1 == $2)
             let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
             return b1 || b2 })
-//        return compareCardsValues(by: { _,_,_ in return true })
+        //return compareCardsValues(by: { _,_,_ in return true })
     }
     
     //compare all selected cards attributes (color, filling, shape, shapeCount) by boolean comparison function
