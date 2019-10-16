@@ -153,11 +153,11 @@ struct SetGameModel {
     }
     
     func isSet() -> Bool {
-//        return compareCardsValues(by: {
-//            let b1 = ($0 == $1 && $1 == $2)
-//            let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
-//            return b1 || b2 })
-        return compareCardsValues(by: { _,_,_ in return true })
+        return compareCardsValues(by: {
+            let b1 = ($0 == $1 && $1 == $2)
+            let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
+            return b1 || b2 })
+//        return compareCardsValues(by: { _,_,_ in return true })
     }
     
     //compare all selected cards attributes (color, filling, shape, shapeCount) by boolean comparison function
