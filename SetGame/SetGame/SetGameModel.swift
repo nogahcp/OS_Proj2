@@ -14,19 +14,7 @@ struct SetGameModel {
     var selectedCards: [Card]
     var score = 0
     var choosenCardsState = CardState.chosen
-//    {
-//        get {
-//            if self.selectedCards.count < 3 {
-//                return CardState.chosen
-//            }
-//            else if self.isSet() {
-//                return CardState.match
-//            }
-//            else {
-//                return CardState.mismatch
-//            }
-//        }
-//    }
+
     var countCardsOnBoard: Int {
         get {
             var res = 0
@@ -158,7 +146,7 @@ struct SetGameModel {
         self.addCardsToBoard()
     }
     
-    private func isSet() -> Bool{
+     func isSet() -> Bool{
         return compareCardsValues(by: {
             let b1 = ($0 == $1 && $1 == $2)
             let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
@@ -169,6 +157,10 @@ struct SetGameModel {
     private func compareCardsValues(by comprison: (CardProperty, CardProperty, CardProperty) -> Bool) -> Bool {
         return comprison(self.selectedCards[0].color, self.selectedCards[1].color, self.selectedCards[2].color) && comprison(self.selectedCards[0].filling, self.selectedCards[1].filling, self.selectedCards[2].filling) && comprison(self.selectedCards[0].shape, self.selectedCards[1].shape, self.selectedCards[2].shape) && comprison(self.selectedCards[0].shapeCount, self.selectedCards[1].shapeCount, self.selectedCards[2].shapeCount)
     }
+//    
+//    func findSet() {
+//        for var 
+//    }
     
 }
 

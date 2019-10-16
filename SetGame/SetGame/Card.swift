@@ -12,7 +12,6 @@ class Card: Equatable {
     
     var identifier: Int
     static var runID = 0 //run ID for new cards
-    //var cardState: CardState
     var shape: CardProperty
     var color: CardProperty
     var shapeCount: CardProperty
@@ -28,12 +27,11 @@ class Card: Equatable {
     }
     
     static func == (lhs: Card, rhs: Card) -> Bool {
-        return (lhs.identifier == rhs.identifier)
-        //TODO shape, color, filing, count ??
+        return (lhs.shape == rhs.shape) && (lhs.color == rhs.color) && (lhs.shapeCount == rhs.shapeCount) && (lhs.filling == rhs.filling)
     }
 }
 
-//enum represent if card is choosen, notChosen, match or mismatch
+//enum represent if cards on board is choosen, match or mismatch
 enum CardState {
     case chosen
     case match
