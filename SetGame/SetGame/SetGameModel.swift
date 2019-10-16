@@ -165,8 +165,11 @@ struct SetGameModel {
     }
     
     //compare all selected cards attributes (color, filling, shape, shapeCount) by boolean comparison function
-    private func compareCardsValues(by comprison: (CardProperty, CardProperty, CardProperty) -> Bool) -> Bool {
-        return comprison(self.selectedCards[0].color, self.selectedCards[1].color, self.selectedCards[2].color) && comprison(self.selectedCards[0].filling, self.selectedCards[1].filling, self.selectedCards[2].filling) && comprison(self.selectedCards[0].shape, self.selectedCards[1].shape, self.selectedCards[2].shape) && comprison(self.selectedCards[0].shapeCount, self.selectedCards[1].shapeCount, self.selectedCards[2].shapeCount)
+    private func compareCardsValues(by comparison: (CardProperty, CardProperty, CardProperty) -> Bool) -> Bool {
+        return comparison(self.selectedCards[0].color, self.selectedCards[1].color, self.selectedCards[2].color) &&
+            comparison(self.selectedCards[0].filling, self.selectedCards[1].filling, self.selectedCards[2].filling) &&
+            comparison(self.selectedCards[0].shape, self.selectedCards[1].shape, self.selectedCards[2].shape) &&
+            comparison(self.selectedCards[0].shapeCount, self.selectedCards[1].shapeCount, self.selectedCards[2].shapeCount)
     }
     
     //return 2 indexes of existing set, or nil if not exist
