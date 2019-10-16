@@ -121,6 +121,19 @@ class SetGameTests: XCTestCase {
         XCTAssertEqual(setGame.isSet(), true)
     }
     
+    //check if given hint is true
+    func testHint() {
+        let twoCards = setGame.getHint()
+        if twoCards != nil {
+            let thirdCard = setGame.thirdCardForSetExist(index1: twoCards!.0 , index2: twoCards!.1)
+            let index3 = setGame.cardOnBoard.firstIndex(of: thirdCard)
+            setGame.cardSelected(cardIndex: twoCards!.0)
+            setGame.cardSelected(cardIndex: twoCards!.1)
+            setGame.cardSelected(cardIndex: index3!)
+            XCTAssert(setGame.isSet())
+        }
+        XCTAssert(true)
+    }
     
     
     func testPerformanceExample() {

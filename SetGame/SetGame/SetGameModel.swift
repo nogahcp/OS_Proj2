@@ -181,7 +181,7 @@ struct SetGameModel {
     private func findSet() -> (Int, Int)? {
         for var i in 0..<cardOnBoard.count {
             for var j in i+1..<cardOnBoard.count {
-                if thirdCardForSetExist(index1: i, index2: j) {
+                if thirdCardForSetExist(index1: i, index2: j) != nil {
                     return (i, j)
                 }
             }
@@ -190,13 +190,12 @@ struct SetGameModel {
     }
     
     //check if board have third card to complete the given 2 cards to a set
-    private func thirdCardForSetExist(index1: Int, index2: Int) -> Bool {
+    func thirdCardForSetExist(index1: Int, index2: Int) -> Card? {
         let card1 = self.cardOnBoard[index1]
         let card2 = self.cardOnBoard[index2]
         //if cards are nill print error
         guard card1 != nil && card2 != nil else {
-            //print("cardIndex: \(index1), \(index2) is an empty card")
-            return false
+            return nil
         }
         //create complete card for set
         let shape = thirdPropertyForSet(prop1: card1!.shape, prop2: card2!.shape)
@@ -205,7 +204,7 @@ struct SetGameModel {
         let filling = thirdPropertyForSet(prop1: card1!.filling, prop2: card2!.filling)
         let card3 = Card(shape: shape, color: color, shapeCount: shapeCount, filling: filling)
         
-        return self.cardOnBoard.contains(card3)
+        return self.cardOnBoard.contains(card3) ? card3 : nil
     }
     
     //return third property for given 2 to complete a set
