@@ -29,39 +29,53 @@ class ViewController: UIViewController {
     func updateViewFromModel() {
         //set cards
         for index in setGame.cardOnBoard.indices {
-            //places on board not fill with cards (if less than 24 cards on board)
+            //places on board not filled with cards (if less than 24 cards on board)
             if setGame.cardOnBoard[index] == nil {
-                self.cardsOnBoard[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                let emptyText = NSAttributedString(string: "   ")
-                self.cardsOnBoard[index].setAttributedTitle(emptyText, for: UIControl.State.normal)
-                self.cardsOnBoard[index].layer.borderWidth = 0
+                self.updateEmptyCardView(at: index)
             }
-            //set cards color, filling, shape and border
+            //regular cards on board
             else {
-                let currCard = setGame.cardOnBoard[index]!
-                let attributes: [NSAttributedString.Key : Any] = [
-                    .strokeColor : cardColorDict[currCard.color] as! UIColor,
-                    .strokeWidth : -5.0,
-                    .foregroundColor : (cardColorDict[currCard.color] as! UIColor).withAlphaComponent(CGFloat(cardFillingDict[currCard.filling]!))
-                ]
-                let atriText = NSAttributedString(string: getCardString(card: currCard), attributes: attributes)
-                self.cardsOnBoard[index].setAttributedTitle(atriText, for: UIControl.State.normal)
-                self.cardsOnBoard[index].backgroundColor=#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-                
-                //set card outline
-                if setGame.selectedCards.contains(currCard) {
-                    self.cardsOnBoard[index].layer.borderWidth = 2.0
-                    self.cardsOnBoard[index].layer.borderColor = borderColorDict[setGame.choosenCardsState]
-                }
-                else {
-                    self.cardsOnBoard[index].layer.borderWidth = 0
-                }
+                self.updateCardView(at: index)
+                self.updateCardOutline(at: index)
             }
         }
         //set button "3 more cards" access
         self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0) && (setGame.countCardsOnBoard < 24)
         //set score text
         self.scoreText.text = "Score: \(setGame.score)"
+    }
+    
+    //set empty card view
+    private func updateEmptyCardView(at index: Int) {
+        self.cardsOnBoard[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        let emptyText = NSAttributedString(string: "   ")
+        self.cardsOnBoard[index].setAttributedTitle(emptyText, for: UIControl.State.normal)
+        self.cardsOnBoard[index].layer.borderWidth = 0
+    }
+    
+    //set cards color, filling, shape
+    private func updateCardView(at index: Int) {
+        let currCard = setGame.cardOnBoard[index]!
+        let attributes: [NSAttributedString.Key : Any] = [
+            .strokeColor : cardColorDict[currCard.color] as! UIColor,
+            .strokeWidth : -5.0,
+            .foregroundColor : (cardColorDict[currCard.color] as! UIColor).withAlphaComponent(CGFloat(cardFillingDict[currCard.filling]!))
+        ]
+        let atriText = NSAttributedString(string: getCardString(card: currCard), attributes: attributes)
+        self.cardsOnBoard[index].setAttributedTitle(atriText, for: UIControl.State.normal)
+        self.cardsOnBoard[index].backgroundColor=#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+    
+    //set card outline if selected (color by choosenCardState)
+    private func updateCardOutline(at index: Int) {
+        let currCard = setGame.cardOnBoard[index]!
+        if setGame.selectedCards.contains(currCard) {
+            self.cardsOnBoard[index].layer.borderWidth = 2.0
+            self.cardsOnBoard[index].layer.borderColor = borderColorDict[setGame.choosenCardsState]
+        }
+        else {
+            self.cardsOnBoard[index].layer.borderWidth = 0
+        }
     }
     
     //return card shapes as string
