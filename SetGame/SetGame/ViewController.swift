@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
     @IBOutlet weak var scoreText: UITextField!
+    @IBOutlet weak var setBoardView: SetBoardView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,26 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel() {
+        let cardsCount = setGame.cardOnBoard.count
+        let columns = 3
+        let rows = cardsCount / columns
+        setBoardView.boardGrid = Grid(layout: .dimensions(rowCount: rows, columnCount: columns), frame: setBoardView.frame)
+        for index in setGame.cardOnBoard.indices {
+            var card = setGame.cardOnBoard[index]
+            var frame = setBoardView.boardGrid[index]!
+            var cardView = SetCardView(frame: frame)
+            //set cardView parameters
+            cardView.cardContent = self.getCardString(card: card)
+            cardView.color = cardColorDict[card.color] as! UIColor
+            cardView.filling = cardFillingDict[card.filling]!
+            cardView.position = setBoardView.boardGrid[index]!
+            //add cardView to board
+            self.setBoardView.addSubview(cardView)
+        }
+    }
+    
+    
+    func updateViewFromModeOld() {
         //set cards
         for index in setGame.cardOnBoard.indices {
             //places on board not filled with cards (if less than 24 cards on board)
@@ -55,7 +76,7 @@ class ViewController: UIViewController {
     
     //set cards color, filling, shape
     private func updateCardView(at index: Int) {
-        let currCard = setGame.cardOnBoard[index]!
+        let currCard = setGame.cardOnBoard[index]
         let attributes: [NSAttributedString.Key : Any] = [
             .strokeColor : cardColorDict[currCard.color] as! UIColor,
             .strokeWidth : -5.0,
@@ -68,7 +89,7 @@ class ViewController: UIViewController {
     
     //set card outline if selected (color by choosenCardState)
     private func updateCardOutline(at index: Int) {
-        let currCard = setGame.cardOnBoard[index]!
+        let currCard = setGame.cardOnBoard[index]
         if setGame.selectedCards.contains(currCard) {
             self.cardsOnBoard[index].layer.borderWidth = 2.0
             self.cardsOnBoard[index].layer.borderColor = borderColorDict[setGame.choosenCardsState]

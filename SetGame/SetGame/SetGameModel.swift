@@ -10,7 +10,7 @@ import Foundation
 
 struct SetGameModel {
     var stackCards: [Card]
-    var cardOnBoard: [Card?]
+    var cardOnBoard: [Card]
     var selectedCards: [Card]
     var score = 0
     var choosenCardsState = CardState.chosen
@@ -29,7 +29,7 @@ struct SetGameModel {
     
     init() {
         self.stackCards = [Card]()
-        self.cardOnBoard = [Card?](repeating: nil, count: 24)
+        self.cardOnBoard = [Card]()
         self.selectedCards = [Card]()
         createStack()
         fillBoard()
@@ -53,17 +53,18 @@ struct SetGameModel {
     //add 12 cards from stack to board
     mutating func fillBoard() {
         for index in 0..<12 {
-            self.cardOnBoard[index] = (self.stackCards.randomElement())
-            self.stackCards.remove(element: self.cardOnBoard[index]!)
+            self.cardOnBoard.append(self.stackCards.randomElement()!)
+            self.stackCards.remove(element: self.cardOnBoard[index])
         }
     }
     
     mutating func cardSelected(cardIndex: Int) {
-        //if card selected is place on board without a card
-        guard let currCard = self.cardOnBoard[cardIndex] else {
-            print("cardIndex: \(cardIndex) is an empty card")
+        //if card selected not on board
+        guard cardIndex < self.cardOnBoard.count else {
+            print("ERROR: \(cardIndex) is out of range index in cardOnBoard")
             return
         }
+        let currCard = self.cardOnBoard[cardIndex]
         //deselect card
         if self.selectedCards.contains(currCard) && self.selectedCards.count < 3 {
             self.deselectCard(currCard: currCard)
@@ -124,16 +125,19 @@ struct SetGameModel {
     mutating private func addCardsToBoard() {
         var countAddedCards = 0
         if self.stackCards.count > 0 {
-            for index in self.cardOnBoard.indices {
-                if self.cardOnBoard[index] == nil {
-                    self.cardOnBoard[index] = self.stackCards.randomElement()
-                    self.stackCards.remove(element: self.cardOnBoard[index]!)
-                    countAddedCards += 1
-                }
-                if countAddedCards == 3 {
-                    break
-                }
-            }
+//            for index in self.cardOnBoard.indices {
+//                if self.cardOnBoard[index] == nil {
+//                    self.cardOnBoard[index] = self.stackCards.randomElement()
+//                    self.stackCards.remove(element: self.cardOnBoard[index]!)
+//                    countAddedCards += 1
+//                }
+//                if countAddedCards == 3 {
+//                    break
+//                }
+//            }
+            let card = self.stackCards.randomElement()!
+            self.cardOnBoard.append(card)
+            self.stackCards.remove(element: card)
         }
     }
     
@@ -147,9 +151,10 @@ struct SetGameModel {
     private mutating func clearSelectedSet() {
         if self.choosenCardsState == CardState.match {
             for card in self.selectedCards {
-                if let index = self.cardOnBoard.firstIndex(of: card) {
-                    self.cardOnBoard[index] = nil
-                }
+//                if let index = self.cardOnBoard.firstIndex(of: card) {
+//                    self.cardOnBoard[index] = nil
+//                }
+                self.cardOnBoard.remove(element: card)
             }
             self.selectedCards = [Card]()
             self.choosenCardsState = .chosen
@@ -205,10 +210,10 @@ struct SetGameModel {
             return nil
         }
         //create complete card for set
-        let shape = thirdPropertyForSet(prop1: card1!.shape, prop2: card2!.shape)
-        let color = thirdPropertyForSet(prop1: card1!.color, prop2: card2!.color)
-        let shapeCount = thirdPropertyForSet(prop1: card1!.shapeCount, prop2: card2!.shapeCount)
-        let filling = thirdPropertyForSet(prop1: card1!.filling, prop2: card2!.filling)
+        let shape = thirdPropertyForSet(prop1: card1.shape, prop2: card2.shape)
+        let color = thirdPropertyForSet(prop1: card1.color, prop2: card2.color)
+        let shapeCount = thirdPropertyForSet(prop1: card1.shapeCount, prop2: card2.shapeCount)
+        let filling = thirdPropertyForSet(prop1: card1.filling, prop2: card2.filling)
         let card3 = Card(shape: shape, color: color, shapeCount: shapeCount, filling: filling)
         
         return self.cardOnBoard.contains(card3) ? card3 : nil
