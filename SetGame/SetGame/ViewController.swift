@@ -29,9 +29,21 @@ class ViewController: UIViewController {
     
     func updateViewFromModel() {
         let cardsCount = setGame.cardOnBoard.count
-        let columns = 3
-        let rows = cardsCount / columns
-        setBoardView.boardGrid = Grid(layout: .dimensions(rowCount: rows, columnCount: columns), frame: setBoardView.frame)
+        //remove old cards from view
+        setBoardView.subviews.forEach { $0.removeFromSuperview() }
+        //calculate grid
+        setBoardView.boardGrid = Grid(layout: .aspectRatio(1), frame: setBoardView.frame)
+        setBoardView.boardGrid.cellCount = cardsCount
+        //add cards to board
+        self.createNewCardsViewFromGrid()
+        //set button "3 more cards" access
+        self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0)
+        //set score text
+        self.scoreText.text = "Score: \(setGame.score)"
+    }
+    
+    //go through cardOnBoard and grid and create cards for view
+    private func createNewCardsViewFromGrid() {
         for index in setGame.cardOnBoard.indices {
             var card = setGame.cardOnBoard[index]
             var frame = setBoardView.boardGrid[index]!
@@ -46,25 +58,24 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    func updateViewFromModeOld() {
-        //set cards
-        for index in setGame.cardOnBoard.indices {
-            //places on board not filled with cards (if less than 24 cards on board)
-            if setGame.cardOnBoard[index] == nil {
-                self.updateEmptyCardView(at: index)
-            }
-            //regular cards on board
-            else {
-                self.updateCardView(at: index)
-                self.updateCardOutline(at: index)
-            }
-        }
-        //set button "3 more cards" access
-        self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0) && (setGame.countCardsOnBoard < 24)
-        //set score text
-        self.scoreText.text = "Score: \(setGame.score)"
-    }
+//    func updateViewFromModeOld() {
+//        //set cards
+//        for index in setGame.cardOnBoard.indices {
+//            //places on board not filled with cards (if less than 24 cards on board)
+//            if setGame.cardOnBoard[index] == nil {
+//                self.updateEmptyCardView(at: index)
+//            }
+//            //regular cards on board
+//            else {
+//                self.updateCardView(at: index)
+//                self.updateCardOutline(at: index)
+//            }
+//        }
+//        //set button "3 more cards" access
+//        self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0) && (setGame.countCardsOnBoard < 24)
+//        //set score text
+//        self.scoreText.text = "Score: \(setGame.score)"
+//    }
     
     //set empty card view
     private func updateEmptyCardView(at index: Int) {

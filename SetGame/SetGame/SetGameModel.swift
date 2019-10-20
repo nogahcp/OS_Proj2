@@ -124,20 +124,11 @@ struct SetGameModel {
     //add random 3 cards from stack to board
     mutating private func addCardsToBoard() {
         var countAddedCards = 0
-        if self.stackCards.count > 0 {
-//            for index in self.cardOnBoard.indices {
-//                if self.cardOnBoard[index] == nil {
-//                    self.cardOnBoard[index] = self.stackCards.randomElement()
-//                    self.stackCards.remove(element: self.cardOnBoard[index]!)
-//                    countAddedCards += 1
-//                }
-//                if countAddedCards == 3 {
-//                    break
-//                }
-//            }
+        while self.stackCards.count > 0 && countAddedCards < 3 {
             let card = self.stackCards.randomElement()!
             self.cardOnBoard.append(card)
             self.stackCards.remove(element: card)
+            countAddedCards += 1
         }
     }
     
@@ -151,9 +142,6 @@ struct SetGameModel {
     private mutating func clearSelectedSet() {
         if self.choosenCardsState == CardState.match {
             for card in self.selectedCards {
-//                if let index = self.cardOnBoard.firstIndex(of: card) {
-//                    self.cardOnBoard[index] = nil
-//                }
                 self.cardOnBoard.remove(element: card)
             }
             self.selectedCards = [Card]()

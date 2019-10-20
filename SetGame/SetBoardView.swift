@@ -43,6 +43,7 @@ class SetCardView: UIView {
     //create attributed string for card
     private func createCardAttributedString(fontSize: CGFloat) -> NSAttributedString {
         var font = UIFont.preferredFont(forTextStyle: .body).withSize(fontSize)
+
         font = UIFontMetrics(forTextStyle: .body).scaledFont(for: font)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
@@ -59,7 +60,7 @@ class SetCardView: UIView {
     //create an empty lable and add it as a subview
     private func craeteCardLable() -> UILabel {
         var label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.backgroundColor = UIColor.white
         self.addSubview(label)
         return label
@@ -74,9 +75,7 @@ class SetCardView: UIView {
     
     //set card label text with attributed text
     private func setLabelText() {
-        //TODO: font size
-        self.cardLabel.attributedText = self.createCardAttributedString(fontSize: 33)
-        //self.cardLabel.frame.size = CGSize.zero
+        self.cardLabel.attributedText = self.createCardAttributedString(fontSize: bounds.height * 0.25)
         self.cardLabel.sizeToFit()
     }
 }

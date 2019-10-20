@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ViewController.updateViewFromModel():ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SetCardView.layoutSubviews():SetBoardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bounds">
+            </PersistentString>
+            <PersistentString
+               value = "cardLabel.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.updateViewFromModel2():ViewController.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
