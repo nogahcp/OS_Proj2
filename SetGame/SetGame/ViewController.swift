@@ -21,9 +21,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
     @IBOutlet weak var scoreText: UITextField!
     @IBOutlet weak var setBoardView: SetBoardView!
+    @IBOutlet var screen: UIView! {
+        didSet {
+            //when swipe down - add three cards to board
+            let swipe = UISwipeGestureRecognizer(target: self, action: #selector(addThreeCards(_:)))
+            swipe.direction = .down
+            screen.addGestureRecognizer(swipe)
+            //when rotate - shuffle cards
+            let rotate = UIRotationGestureRecognizer(target: self, action: #selector(shuffleCards))
+            screen.addGestureRecognizer(rotate)
+
+        } }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.updateViewFromModel()
+    }
+    
+    @objc private func shuffleCards() {
+        setGame.shuffleCards()
         self.updateViewFromModel()
     }
     

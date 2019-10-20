@@ -110,6 +110,7 @@
                     <connections>
                         <outlet property="dealThreeMoreCardsButton" destination="CxW-MM-cLt" id="4Jp-WG-j4c"/>
                         <outlet property="scoreText" destination="ZOv-od-KJw" id="RoX-xU-hdS"/>
+                        <outlet property="screen" destination="8bC-Xf-vdC" id="tX0-cp-VML"/>
                         <outlet property="setBoardView" destination="npZ-22-1SV" id="Q8D-mX-enH"/>
                     </connections>
                 </viewController>

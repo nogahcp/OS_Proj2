@@ -226,6 +226,18 @@ struct SetGameModel {
         return prop1
     }
     
+    //shuffle cards on board
+    public mutating func shuffleCards() {
+        var tempCards: [Card] = []
+        while self.cardOnBoard.count > 0 {
+            //get random card and insert to temp list
+            let card = self.cardOnBoard.randomElement()
+            tempCards.append(card!)
+            self.cardOnBoard.remove(element: card!)
+        }
+        self.cardOnBoard = tempCards
+    }
+    
 }
 
 
