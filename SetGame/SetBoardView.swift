@@ -9,20 +9,16 @@
 import UIKit
 
 class SetBoardView: UIView {
-
+    //grid for positioning cards on board
     var boardGrid = Grid(layout: .dimensions(rowCount: 4, columnCount: 3)) { didSet { setNeedsDisplay(); setNeedsLayout() } }
-//    var cardsViews: [SetCardView] = [] { didSet { setNeedsDisplay(); setNeedsLayout() } }
     
     override func draw(_ rect: CGRect) {
-        boardGrid = Grid(layout: boardGrid.layout, frame: rect)
+        boardGrid.frame = rect
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        //set cards on board
-//        for index in self.cardsViews.indices {
-//            self.cardsViews[index].draw(self.boardGrid[index]!)
-//        }
+
     }
 
 }
@@ -70,7 +66,8 @@ class SetCardView: UIView {
         super.layoutSubviews()
         //set label in card
         self.setLabelText()
-        cardLabel.frame = bounds.insetBy(dx: 3, dy: 3)
+//        cardLabel.frame = bounds.insetBy(dx: 3, dy: 3)
+        cardLabel.frame = bounds.inset(by: UIEdgeInsets(top: 1.5, left: 1.5, bottom: 1.5, right: 1.5))
     }
     
     //set card label text with attributed text

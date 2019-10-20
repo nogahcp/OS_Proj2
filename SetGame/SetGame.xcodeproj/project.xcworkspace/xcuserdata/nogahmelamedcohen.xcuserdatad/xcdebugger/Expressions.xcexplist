@@ -3,7 +3,83 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Grid.largestCellSizeThatFitsAspectRatio():Grid.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cellCount">
+            </PersistentString>
+            <PersistentString
+               value = "aspectRatio">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SetGameModel.clearSelectedSet():SetGameModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.cardOnBoard.firstIndex(of: card)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Grid.recalculate():Grid.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(cellCount + calculatedDimensions.columnCount - 1)">
+            </PersistentString>
+            <PersistentString
+               value = "calculatedDimensions.columnCount">
+            </PersistentString>
+            <PersistentString
+               value = "frame.size.width">
+            </PersistentString>
+            <PersistentString
+               value = "calculatedDimensions.rowCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.getCardIndexFromGrid(location:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.setBoardView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.tapOnCard(touch:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "setBoardView.boardGrid">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.updateCardOutline(at:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cardsOnBoard">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SetGameModel.startNewSetSelection(currCard:):SetGameModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SetBoardView.draw(_:):SetBoardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "boardGrid">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.updateViewFromModel():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "setBoardView.boardGrid">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "SetCardView.layoutSubviews():SetBoardView.swift">
@@ -17,7 +93,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ViewController.createNewCardsViewFromGrid():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "setBoardView.boardGrid">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.updateViewFromModel2():ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SetGameModel.addCardsToBoard(at:):SetGameModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Grid.aspectRatio.getter:Grid.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

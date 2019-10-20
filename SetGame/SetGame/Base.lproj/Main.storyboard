@@ -14,7 +14,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SetGame" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="redraw" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -91,19 +91,19 @@
                                 </constraints>
                             </stackView>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npZ-22-1SV" customClass="SetBoardView" customModule="SetGame" customModuleProvider="target">
-                                <rect key="frame" x="16" y="44" width="382" height="646"/>
+                                <rect key="frame" x="16" y="54" width="382" height="636"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eZq-Z1-7Zr" secondAttribute="bottom" id="5Nl-H6-CPY"/>
+                            <constraint firstItem="CxW-MM-cLt" firstAttribute="top" secondItem="npZ-22-1SV" secondAttribute="bottom" constant="30" id="Lfh-Fr-gqX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eZq-Z1-7Zr" secondAttribute="trailing" constant="100" id="Qzd-a8-lWy"/>
                             <constraint firstItem="eZq-Z1-7Zr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="XzV-46-19h"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="npZ-22-1SV" secondAttribute="trailing" constant="16" id="cCF-Mr-SEn"/>
                             <constraint firstItem="npZ-22-1SV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="dgV-2t-lpz"/>
-                            <constraint firstItem="CxW-MM-cLt" firstAttribute="top" secondItem="npZ-22-1SV" secondAttribute="bottom" constant="30" id="kMz-2B-n4g"/>
-                            <constraint firstItem="npZ-22-1SV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="muu-b9-ja6"/>
+                            <constraint firstItem="npZ-22-1SV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="muu-b9-ja6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="npZ-22-1SV" secondAttribute="trailing" constant="16" id="s9E-ny-Iv9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

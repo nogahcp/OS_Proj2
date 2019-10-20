@@ -31,14 +31,14 @@ class SetGameTests: XCTestCase {
     //check if afted cardSelected card is in selected array
     func testCardSelected() {
         setGame.cardSelected(cardIndex: 0)
-        XCTAssert(setGame.selectedCards.contains(setGame.cardOnBoard[0]!))
+        XCTAssert(setGame.selectedCards.contains(setGame.cardOnBoard[0]))
     }
     
     //check if afted cardSelected twice card is not in selected array
     func testCardDeselect() {
         setGame.cardSelected(cardIndex: 0)
         setGame.cardSelected(cardIndex: 0)
-        XCTAssert(!setGame.selectedCards.contains(setGame.cardOnBoard[0]!))
+        XCTAssert(!setGame.selectedCards.contains(setGame.cardOnBoard[0]))
     }
     
     //after adding 3 cards stack with 66 cards and board with 15
@@ -66,7 +66,7 @@ class SetGameTests: XCTestCase {
         setGame.cardSelected(cardIndex: 1)
         setGame.cardSelected(cardIndex: 2)
         setGame.cardSelected(cardIndex: 3)
-        XCTAssert(setGame.selectedCards.count == 1 && setGame.selectedCards.contains(setGame.cardOnBoard[3]!))
+        XCTAssert(setGame.selectedCards.count == 1 && setGame.selectedCards.contains(setGame.cardOnBoard[3]))
     }
     
     //not set by shape
@@ -126,7 +126,7 @@ class SetGameTests: XCTestCase {
         let twoCards = setGame.getHint()
         if twoCards != nil {
             let thirdCard = setGame.thirdCardForSetExist(index1: twoCards!.0 , index2: twoCards!.1)
-            let index3 = setGame.cardOnBoard.firstIndex(of: thirdCard)
+            let index3 = setGame.cardOnBoard.firstIndex(of: thirdCard!)
             setGame.cardSelected(cardIndex: twoCards!.0)
             setGame.cardSelected(cardIndex: twoCards!.1)
             setGame.cardSelected(cardIndex: index3!)

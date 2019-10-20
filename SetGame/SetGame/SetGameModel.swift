@@ -108,9 +108,9 @@ struct SetGameModel {
             if !self.selectedCards.contains(currCard) {
                 tempSelected.append(currCard)
             }
-            self.clearSelectedSet()
+            let indexes = self.clearSelectedSet()
             self.selectedCards = tempSelected
-            self.addCardsToBoard()
+            self.addCardsToBoard(at: indexes)
         }
         //last set was not a match - choose new cards
         else {
@@ -122,11 +122,18 @@ struct SetGameModel {
     }
     
     //add random 3 cards from stack to board
-    mutating private func addCardsToBoard() {
+    mutating private func addCardsToBoard(at indexes: [Int]?) {
         var countAddedCards = 0
         while self.stackCards.count > 0 && countAddedCards < 3 {
-            let card = self.stackCards.randomElement()!
-            self.cardOnBoard.append(card)
+            var card = self.stackCards.randomElement()!
+            //replace previous card if possible
+            if indexes != nil {
+                self.cardOnBoard.insert(card, at: indexes![countAddedCards])
+            }
+            //nothing to replace - just add cards
+            else {
+                self.cardOnBoard.append(card)
+            }
             self.stackCards.remove(element: card)
             countAddedCards += 1
         }
@@ -135,18 +142,28 @@ struct SetGameModel {
     //check if selected cards are set -> replace them, else add three cards
     mutating func addThreeCardsButtonPressed() {
         self.clearSelectedSet()
-        self.addCardsToBoard()
+        self.addCardsToBoard(at: nil)
     }
     
-    //if choosen cards are set - clear selected and change state to chosen
-    private mutating func clearSelectedSet() {
+    //if choosen cards are set - clear selected, change state to chosen and return indexes
+    private mutating func clearSelectedSet() -> [Int]? {
+        var res: [Int] = []
+        var toRemove: [Card] = []
         if self.choosenCardsState == CardState.match {
+            //find indexes
             for card in self.selectedCards {
+                res.append(self.cardOnBoard.firstIndex(of: card)!)
+                toRemove.append(card)
+            }
+            //remove from board
+            for card in toRemove {
                 self.cardOnBoard.remove(element: card)
             }
             self.selectedCards = [Card]()
             self.choosenCardsState = .chosen
+            return res.sorted()
         }
+        return nil
     }
     
     func isSet() -> Bool {
@@ -154,7 +171,7 @@ struct SetGameModel {
             let b1 = ($0 == $1 && $1 == $2)
             let b2 = ($0 != $1 && $1 != $2 && $2 != $0)
             return b1 || b2 })
-        //return compareCardsValues(by: { _,_,_ in return true })
+//        return compareCardsValues(by: { _,_,_ in return true })
     }
     
     //compare all selected cards attributes (color, filling, shape, shapeCount) by boolean comparison function
@@ -169,8 +186,8 @@ struct SetGameModel {
     mutating func getHint() -> (Int, Int)? {
         //if selected card already a match - first replace selected cards
         if self.choosenCardsState == .match {
-            self.clearSelectedSet()
-            self.addCardsToBoard()
+            let indexes = self.clearSelectedSet()
+            self.addCardsToBoard(at: indexes)
         }
         //reduce score by one
         self.score -= 1

@@ -17,10 +17,17 @@ class ViewController: UIViewController {
     let cardShapeDict = [CardProperty.p1 : "▲", CardProperty.p2 : "●", CardProperty.p3: "■"]
     let cardShapeCountDict = [CardProperty.p1 : 1, CardProperty.p2 : 2, CardProperty.p3: 3]
     let borderColorDict : [CardState : CGColor] = [CardState.chosen : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), CardState.match : #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), CardState.mismatch : #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)]
+    var hintIndexes: (Int, Int)? = nil
     
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
     @IBOutlet weak var scoreText: UITextField!
-    @IBOutlet weak var setBoardView: SetBoardView!
+    @IBOutlet weak var setBoardView: SetBoardView! {
+        didSet {
+            //when tap - select card
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapOnCard))
+            setBoardView.addGestureRecognizer(tap)
+        }
+    }
     @IBOutlet var screen: UIView! {
         didSet {
             //when swipe down - add three cards to board
@@ -38,9 +45,34 @@ class ViewController: UIViewController {
         self.updateViewFromModel()
     }
     
+    //recalculate grid and draw when phone rotates
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        self.updateViewFromModel()
+    }
+    
+    //shuffle cards on board
     @objc private func shuffleCards() {
         setGame.shuffleCards()
         self.updateViewFromModel()
+    }
+    
+    //select card by position
+    @objc private func tapOnCard(touch: UITapGestureRecognizer) {
+        var touchLocation = touch.location(in: self.setBoardView)
+        //find which card was taped by position in grid
+        var cardIndex = getCardIndexFromGrid(location: touchLocation)
+        self.cardTouched(index: cardIndex)
+    }
+    
+    //return card index on board by position on grid
+    private func getCardIndexFromGrid(location: CGPoint) -> Int? {
+        for index in 0..<self.setBoardView!.boardGrid.cellCount {
+            var currCard = self.setBoardView!.boardGrid[index]
+            if currCard!.contains(location) {
+                return index
+            }
+        }
+        return nil
     }
     
     func updateViewFromModel() {
@@ -71,27 +103,10 @@ class ViewController: UIViewController {
             cardView.position = setBoardView.boardGrid[index]!
             //add cardView to board
             self.setBoardView.addSubview(cardView)
+            //add mark if needed
+            self.updateCardOutline(to: cardView, at: index)
         }
     }
-    
-//    func updateViewFromModeOld() {
-//        //set cards
-//        for index in setGame.cardOnBoard.indices {
-//            //places on board not filled with cards (if less than 24 cards on board)
-//            if setGame.cardOnBoard[index] == nil {
-//                self.updateEmptyCardView(at: index)
-//            }
-//            //regular cards on board
-//            else {
-//                self.updateCardView(at: index)
-//                self.updateCardOutline(at: index)
-//            }
-//        }
-//        //set button "3 more cards" access
-//        self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0) && (setGame.countCardsOnBoard < 24)
-//        //set score text
-//        self.scoreText.text = "Score: \(setGame.score)"
-//    }
     
     //set empty card view
     private func updateEmptyCardView(at index: Int) {
@@ -115,14 +130,22 @@ class ViewController: UIViewController {
     }
     
     //set card outline if selected (color by choosenCardState)
-    private func updateCardOutline(at index: Int) {
+    private func updateCardOutline(to card: SetCardView, at index:Int) {
         let currCard = setGame.cardOnBoard[index]
+        //if is hint - mark in yellow
+        if self.hintIndexes != nil && (self.hintIndexes?.0 == index || self.hintIndexes?.1 == index)
+        {
+            card.layer.borderWidth = 2.0
+            card.layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+            return
+        }
+        
         if setGame.selectedCards.contains(currCard) {
-            self.cardsOnBoard[index].layer.borderWidth = 2.0
-            self.cardsOnBoard[index].layer.borderColor = borderColorDict[setGame.choosenCardsState]
+            card.layer.borderWidth = 2.0
+            card.layer.borderColor = borderColorDict[setGame.choosenCardsState]
         }
         else {
-            self.cardsOnBoard[index].layer.borderWidth = 0
+            card.layer.borderWidth = 0
         }
     }
     
@@ -135,14 +158,14 @@ class ViewController: UIViewController {
         return res
     }
     
-    //card button touched
-    @IBAction func buttonTouched(_ sender: Any) {
-        if let cardIndex = cardsOnBoard.firstIndex(of: sender as! UIButton) {
+    //card touched
+    private func cardTouched(index: Int?) {
+        if let cardIndex = index {
             setGame.cardSelected(cardIndex: cardIndex)
             updateViewFromModel()
         }
         else {
-            print("error: card was not in cards")
+            print("touch not on card")
         }
         //if only 3 card and a match - game ended
         if setGame.countCardsOnBoard == 3 && setGame.choosenCardsState == .match {
@@ -162,14 +185,9 @@ class ViewController: UIViewController {
     
     //if there is set - colol 2 cards in yellow
     @IBAction func getHint(_ sender: Any) {
-        var indexes = setGame.getHint()
+        self.hintIndexes = setGame.getHint()
         self.updateViewFromModel()
-        if indexes != nil {
-            self.cardsOnBoard![indexes!.0].layer.borderWidth = 3.0
-            self.cardsOnBoard![indexes!.0].layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
-            self.cardsOnBoard![indexes!.1].layer.borderWidth = 3.0
-            self.cardsOnBoard![indexes!.1].layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
-        }
+        self.hintIndexes = nil
     }
     
     //pop alert when game is ended
@@ -180,9 +198,7 @@ class ViewController: UIViewController {
             self.setGame = SetGameModel()
             self.updateViewFromModel()
         }))
-
         self.present(alert, animated: true)
-
     }
 }
 
