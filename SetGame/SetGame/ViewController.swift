@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         self.updateViewFromModel()
     }
     
-    //select card by position
+    //select card by position of tap
     @objc private func tapOnCard(touch: UITapGestureRecognizer) {
         let touchLocation = touch.location(in: self.setBoardView)
         //find which card was taped by position in grid
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         self.scoreText.text = "Score: \(setGame.score)"
     }
     
-    //go through cardOnBoard and grid and create cards for view
+    //go through cardOnBoard and create cards for view (using grid)
     private func createNewCardsViewFromGrid() {
         for index in setGame.cardOnBoard.indices {
             let card = setGame.cardOnBoard[index]
@@ -103,33 +103,11 @@ class ViewController: UIViewController {
             cardView.cardContent = self.getCardString(card: card)
             cardView.color = cardColorDict[card.color] as! UIColor
             cardView.filling = cardFillingDict[card.filling]!
-            //cardView.position = setBoardView.boardGrid[index]!
             //add mark if needed
             self.updateCardOutline(to: cardView, at: index)
             //add cardView to board
             self.setBoardView.addSubview(cardView)
         }
-    }
-    
-    //set empty card view
-    private func updateEmptyCardView(at index: Int) {
-        self.cardsOnBoard[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        let emptyText = NSAttributedString(string: "   ")
-        self.cardsOnBoard[index].setAttributedTitle(emptyText, for: UIControl.State.normal)
-        self.cardsOnBoard[index].layer.borderWidth = 0
-    }
-    
-    //set cards color, filling, shape
-    private func updateCardView(at index: Int) {
-        let currCard = setGame.cardOnBoard[index]
-        let attributes: [NSAttributedString.Key : Any] = [
-            .strokeColor : cardColorDict[currCard.color] as! UIColor,
-            .strokeWidth : -5.0,
-            .foregroundColor : (cardColorDict[currCard.color] as! UIColor).withAlphaComponent(CGFloat(cardFillingDict[currCard.filling]!))
-        ]
-        let atriText = NSAttributedString(string: getCardString(card: currCard), attributes: attributes)
-        self.cardsOnBoard[index].setAttributedTitle(atriText, for: UIControl.State.normal)
-        self.cardsOnBoard[index].backgroundColor=#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
     
     //set card outline if selected (color by choosenCardState)
@@ -151,8 +129,8 @@ class ViewController: UIViewController {
         }
     }
     
-    //return card shapes as string
-    private func getCardString(card: Card) -> String{
+    //return card shapes as a string
+    private func getCardString(card: Card) -> String {
         var res = ""
         for _ in 0..<(self.cardShapeCountDict[card.shapeCount] ?? 0) {
             res += self.cardShapeDict[card.shape] ?? "?"
@@ -160,7 +138,7 @@ class ViewController: UIViewController {
         return res
     }
     
-    //card touched
+    //select card when card touched
     private func cardTouched(index: Int?) {
         if let cardIndex = index {
             setGame.cardSelected(cardIndex: cardIndex)
@@ -169,7 +147,7 @@ class ViewController: UIViewController {
         else {
             print("touch not on card")
         }
-        //if only 3 card and a match - game ended
+        //if only 3 card and it is a match - game ended
         if setGame.countCardsOnBoard == 3 && setGame.choosenCardsState == .match {
             self.gameEnded()
         }
@@ -185,11 +163,10 @@ class ViewController: UIViewController {
         self.updateViewFromModel()
     }
     
-    //if there is set - colol 2 cards in yellow
+    //if there is set - color 2 cards in yellow
     @IBAction func getHint(_ sender: Any) {
         self.hintIndexes = setGame.getHint()
         self.updateViewFromModel()
-        //self.hintIndexes = nil
     }
     
     //pop alert when game is ended

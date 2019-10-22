@@ -8,6 +8,7 @@
 
 import UIKit
 
+//board view with grid and SetCardViews as subviews
 class SetBoardView: UIView {
     //grid for positioning cards on board
     var boardGrid = Grid(layout: .dimensions(rowCount: 4, columnCount: 3)) { didSet { setNeedsDisplay(); setNeedsLayout() } }
@@ -18,7 +19,6 @@ class SetBoardView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
     }
 
 }
@@ -29,7 +29,6 @@ class SetCardView: UIView {
     var color: UIColor = UIColor.white { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var filling: Double = 1 { didSet { setNeedsDisplay(); setNeedsLayout() } }
     private lazy var cardLabel: UILabel = self.craeteCardLable() 
-    //var position: CGRect = CGRect() { didSet { setNeedsDisplay(); setNeedsLayout() } }
     
     override func draw(_ rect: CGRect) {
         bounds.origin = rect.origin
@@ -38,15 +37,14 @@ class SetCardView: UIView {
     //create attributed string for card
     private func createCardAttributedString(fontSize: CGFloat) -> NSAttributedString {
         var font = UIFont.preferredFont(forTextStyle: .body).withSize(fontSize)
-
         font = UIFontMetrics(forTextStyle: .body).scaledFont(for: font)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         let attributes: [NSAttributedString.Key : Any] = [
-            .strokeColor : color,
+            .strokeColor : self.color,
             .strokeWidth : -5.0,
             .paragraphStyle : paragraphStyle,
-            .foregroundColor : (color.withAlphaComponent(CGFloat(filling))),
+            .foregroundColor : (self.color.withAlphaComponent(CGFloat(self.filling))),
             .font : font
         ]
         return NSAttributedString(string: cardContent, attributes: attributes)
