@@ -66,18 +66,21 @@
          contextName = "SetGameModel.startNewSetSelection(currCard:):SetGameModel.swift">
       </ContextState>
       <ContextState
-         contextName = "SetBoardView.draw(_:):SetBoardView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "boardGrid">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "ViewController.updateViewFromModel():ViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "setBoardView.boardGrid">
+            </PersistentString>
+            <PersistentString
+               value = "setBoardView.subviews[11].frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SetBoardView.draw(_:):SetBoardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "boardGrid">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -98,6 +101,9 @@
             <PersistentString
                value = "setBoardView.boardGrid">
             </PersistentString>
+            <PersistentString
+               value = "setBoardView.subviews[11].frame">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -108,6 +114,28 @@
       </ContextState>
       <ContextState
          contextName = "Grid.aspectRatio.getter:Grid.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SetCardView.draw(_:):SetBoardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bounds">
+            </PersistentString>
+            <PersistentString
+               value = "cardLabel.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SetBoardView.layoutSubviews():SetBoardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.subiews[11].frame">
+            </PersistentString>
+            <PersistentString
+               value = "self.subiews">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

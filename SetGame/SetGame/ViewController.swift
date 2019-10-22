@@ -58,16 +58,16 @@ class ViewController: UIViewController {
     
     //select card by position
     @objc private func tapOnCard(touch: UITapGestureRecognizer) {
-        var touchLocation = touch.location(in: self.setBoardView)
+        let touchLocation = touch.location(in: self.setBoardView)
         //find which card was taped by position in grid
-        var cardIndex = getCardIndexFromGrid(location: touchLocation)
+        let cardIndex = getCardIndexFromGrid(location: touchLocation)
         self.cardTouched(index: cardIndex)
     }
     
     //return card index on board by position on grid
     private func getCardIndexFromGrid(location: CGPoint) -> Int? {
         for index in 0..<self.setBoardView!.boardGrid.cellCount {
-            var currCard = self.setBoardView!.boardGrid[index]
+            let currCard = self.setBoardView!.boardGrid[index]
             if currCard!.contains(location) {
                 return index
             }
@@ -93,14 +93,14 @@ class ViewController: UIViewController {
     //go through cardOnBoard and grid and create cards for view
     private func createNewCardsViewFromGrid() {
         for index in setGame.cardOnBoard.indices {
-            var card = setGame.cardOnBoard[index]
-            var frame = setBoardView.boardGrid[index]!
-            var cardView = SetCardView(frame: frame)
+            let card = setGame.cardOnBoard[index]
+            let frame = setBoardView.boardGrid[index]!
+            let cardView =  SetCardView(frame: frame)
             //set cardView parameters
             cardView.cardContent = self.getCardString(card: card)
             cardView.color = cardColorDict[card.color] as! UIColor
             cardView.filling = cardFillingDict[card.filling]!
-            cardView.position = setBoardView.boardGrid[index]!
+            //cardView.position = setBoardView.boardGrid[index]!
             //add cardView to board
             self.setBoardView.addSubview(cardView)
             //add mark if needed

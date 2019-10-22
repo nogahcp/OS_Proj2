@@ -14,7 +14,6 @@
 		250C7975234F331D00D0E10C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250C7973234F331D00D0E10C /* LaunchScreen.storyboard */; };
 		250C797E234F4D8300D0E10C /* SetGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250C797D234F4D8300D0E10C /* SetGameModel.swift */; };
 		250C7980234F4D9A00D0E10C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250C797F234F4D9A00D0E10C /* Card.swift */; };
-		25165A1823587E3600218754 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25165A1723587E3600218754 /* Grid.swift */; };
 		25165A1C235882CD00218754 /* SetBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25165A1B235882CD00218754 /* SetBoardView.swift */; };
 		252DCEB3235601300055FD65 /* SetGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DCEB2235601300055FD65 /* SetGameTests.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +38,6 @@
 		250C7976234F331D00D0E10C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		250C797D234F4D8300D0E10C /* SetGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameModel.swift; sourceTree = "<group>"; };
 		250C797F234F4D9A00D0E10C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		25165A1723587E3600218754 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Grid.swift; path = ../../../../../Downloads/Grid.swift; sourceTree = "<group>"; };
 		25165A1B235882CD00218754 /* SetBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetBoardView.swift; path = ../SetBoardView.swift; sourceTree = "<group>"; };
 		252DCEB0235601300055FD65 /* SetGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SetGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		252DCEB2235601300055FD65 /* SetGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameTests.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 				250C796C234F331C00D0E10C /* ViewController.swift */,
 				25165A1B235882CD00218754 /* SetBoardView.swift */,
 				250C7976234F331D00D0E10C /* Info.plist */,
-				25165A1723587E3600218754 /* Grid.swift */,
 				250C797F234F4D9A00D0E10C /* Card.swift */,
 				250C797D234F4D8300D0E10C /* SetGameModel.swift */,
 			);
@@ -222,7 +219,6 @@
 				250C796B234F331C00D0E10C /* AppDelegate.swift in Sources */,
 				250C797E234F4D8300D0E10C /* SetGameModel.swift in Sources */,
 				250C7980234F4D9A00D0E10C /* Card.swift in Sources */,
-				25165A1823587E3600218754 /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

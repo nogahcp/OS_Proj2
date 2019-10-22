@@ -88,6 +88,7 @@ struct SetGameModel {
     
     mutating private func selectedNewCard(currCard: Card) {
         self.selectedCards.append(currCard)
+        //update score and state
         if self.selectedCards.count == 3 {
             if self.isSet() {
                 self.score += 3
@@ -141,8 +142,8 @@ struct SetGameModel {
     
     //check if selected cards are set -> replace them, else add three cards
     mutating func addThreeCardsButtonPressed() {
-        self.clearSelectedSet()
-        self.addCardsToBoard(at: nil)
+        var indexes = self.clearSelectedSet()
+        self.addCardsToBoard(at: indexes)
     }
     
     //if choosen cards are set - clear selected, change state to chosen and return indexes
