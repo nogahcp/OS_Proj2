@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     let cardShapeDict = [CardProperty.p1 : "▲", CardProperty.p2 : "●", CardProperty.p3: "■"]
     let cardShapeCountDict = [CardProperty.p1 : 1, CardProperty.p2 : 2, CardProperty.p3: 3]
     let borderColorDict : [CardState : CGColor] = [CardState.chosen : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), CardState.match : #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), CardState.mismatch : #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)]
-    var hintIndexes: (Int, Int)? = nil
+    var hintIndexes: (Int, Int, Int)? = nil
     
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
     @IBOutlet weak var scoreText: UITextField!
@@ -114,8 +114,7 @@ class ViewController: UIViewController {
     private func updateCardOutline(to card: SetCardView, at index:Int) {
         let currCard = setGame.cardOnBoard[index]
         //if is hint - mark in yellow
-        if self.hintIndexes != nil && (self.hintIndexes?.0 == index || self.hintIndexes?.1 == index)
-        {
+        if self.hintIndexes != nil && (self.hintIndexes?.0 == index || self.hintIndexes?.1 == index || self.hintIndexes?.2 == index) {
             card.layer.borderWidth = 2.0
             card.layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
         }
@@ -163,7 +162,7 @@ class ViewController: UIViewController {
         self.updateViewFromModel()
     }
     
-    //if there is set - color 2 cards in yellow
+    //if there is set - color 3 cards in yellow
     @IBAction func getHint(_ sender: Any) {
         self.hintIndexes = setGame.getHint()
         self.updateViewFromModel()

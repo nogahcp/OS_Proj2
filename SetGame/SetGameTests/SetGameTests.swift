@@ -123,13 +123,11 @@ class SetGameTests: XCTestCase {
     
     //check if given hint is true
     func testHint() {
-        let twoCards = setGame.getHint()
-        if twoCards != nil {
-            let thirdCard = setGame.thirdCardForSetExist(index1: twoCards!.0 , index2: twoCards!.1)
-            let index3 = setGame.cardOnBoard.firstIndex(of: thirdCard!)
-            setGame.cardSelected(cardIndex: twoCards!.0)
-            setGame.cardSelected(cardIndex: twoCards!.1)
-            setGame.cardSelected(cardIndex: index3!)
+        let setOfCards = setGame.getHint()
+        if setOfCards != nil {
+            setGame.cardSelected(cardIndex: setOfCards!.0)
+            setGame.cardSelected(cardIndex: setOfCards!.1)
+            setGame.cardSelected(cardIndex: setOfCards!.2)
             XCTAssert(setGame.isSet())
         }
         XCTAssert(true)
