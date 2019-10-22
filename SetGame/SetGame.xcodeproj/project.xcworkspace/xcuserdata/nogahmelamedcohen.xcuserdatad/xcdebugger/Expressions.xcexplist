@@ -102,7 +102,7 @@
                value = "setBoardView.boardGrid">
             </PersistentString>
             <PersistentString
-               value = "setBoardView.subviews[11].frame">
+               value = "setBoardView.subviews[11]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -130,7 +130,7 @@
          contextName = "SetBoardView.layoutSubviews():SetBoardView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.subiews[11].frame">
+               value = "self.subviews[11].filling">
             </PersistentString>
             <PersistentString
                value = "self.subiews">
