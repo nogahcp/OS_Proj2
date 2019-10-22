@@ -33,7 +33,6 @@ class SetCardView: UIView {
     
     override func draw(_ rect: CGRect) {
         bounds.origin = rect.origin
-        
     }
     
     //create attributed string for card
@@ -67,6 +66,7 @@ class SetCardView: UIView {
         //set label in card
         self.setLabelText()
         cardLabel.frame = bounds.inset(by: UIEdgeInsets(top: 1.5, left: 1.5, bottom: 1.5, right: 1.5))
+
     }
     
     //set card label text with attributed text

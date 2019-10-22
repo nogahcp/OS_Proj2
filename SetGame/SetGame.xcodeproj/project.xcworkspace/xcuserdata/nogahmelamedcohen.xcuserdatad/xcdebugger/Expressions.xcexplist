@@ -39,6 +39,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SetCardView.init(frame:):(null)">
+      </ContextState>
+      <ContextState
          contextName = "ViewController.getCardIndexFromGrid(location:):ViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -72,6 +75,9 @@
                value = "setBoardView.boardGrid">
             </PersistentString>
             <PersistentString
+               value = "self.setBoardView.subviews.count">
+            </PersistentString>
+            <PersistentString
                value = "setBoardView.subviews[11].frame">
             </PersistentString>
          </PersistentStrings>
@@ -99,10 +105,19 @@
          contextName = "ViewController.createNewCardsViewFromGrid():ViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "setBoardView.boardGrid">
+               value = "cardView.layer.borderWidth">
             </PersistentString>
             <PersistentString
-               value = "setBoardView.subviews[11]">
+               value = "setBoardView.subviews[1].layer.borderWidth">
+            </PersistentString>
+            <PersistentString
+               value = "setBoardView.subviews[1].layer.borderColor">
+            </PersistentString>
+            <PersistentString
+               value = "setBoardView.subviews.count">
+            </PersistentString>
+            <PersistentString
+               value = "setBoardView.subviews">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -136,6 +151,9 @@
                value = "self.subiews">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.getHint(_:):ViewController.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -39,10 +39,13 @@ class ViewController: UIViewController {
             screen.addGestureRecognizer(rotate)
 
         } }
+
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         self.updateViewFromModel()
+        //after updating view - turn hint indexes to nil
+        self.hintIndexes = nil
     }
     
     //recalculate grid and draw when phone rotates
@@ -80,7 +83,7 @@ class ViewController: UIViewController {
         //remove old cards from view
         setBoardView.subviews.forEach { $0.removeFromSuperview() }
         //calculate grid
-        setBoardView.boardGrid = Grid(layout: .aspectRatio(1), frame: setBoardView.frame)
+        setBoardView.boardGrid = Grid(layout: .aspectRatio(1), frame: setBoardView.bounds)
         setBoardView.boardGrid.cellCount = cardsCount
         //add cards to board
         self.createNewCardsViewFromGrid()
@@ -101,10 +104,10 @@ class ViewController: UIViewController {
             cardView.color = cardColorDict[card.color] as! UIColor
             cardView.filling = cardFillingDict[card.filling]!
             //cardView.position = setBoardView.boardGrid[index]!
-            //add cardView to board
-            self.setBoardView.addSubview(cardView)
             //add mark if needed
             self.updateCardOutline(to: cardView, at: index)
+            //add cardView to board
+            self.setBoardView.addSubview(cardView)
         }
     }
     
@@ -137,10 +140,9 @@ class ViewController: UIViewController {
         {
             card.layer.borderWidth = 2.0
             card.layer.borderColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
-            return
         }
-        
-        if setGame.selectedCards.contains(currCard) {
+        //if chosen card - mark according to state
+        else if setGame.selectedCards.contains(currCard) {
             card.layer.borderWidth = 2.0
             card.layer.borderColor = borderColorDict[setGame.choosenCardsState]
         }
@@ -187,7 +189,7 @@ class ViewController: UIViewController {
     @IBAction func getHint(_ sender: Any) {
         self.hintIndexes = setGame.getHint()
         self.updateViewFromModel()
-        self.hintIndexes = nil
+        //self.hintIndexes = nil
     }
     
     //pop alert when game is ended
