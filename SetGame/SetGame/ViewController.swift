@@ -146,8 +146,8 @@ class ViewController: UIViewController {
         else {
             print("touch not on card")
         }
-        //if only 3 card and it is a match - game ended
-        if setGame.countCardsOnBoard == 3 && setGame.choosenCardsState == .match {
+        //if no more sets and no cards in stack - game ended
+        if self.setGame.findSet() == nil && self.setGame.stackCards.count == 0 {
             self.gameEnded()
         }
     }

@@ -200,7 +200,7 @@ struct SetGameModel {
     }
     
     //return 3 indexes of existing set, or nil if not exist
-    private func findSet() -> (Int, Int, Int)? {
+    func findSet() -> (Int, Int, Int)? {
         for var i in 0..<cardOnBoard.count {
             for var j in i+1..<cardOnBoard.count {
                 if let k = thirdCardForSetExist(index1: i, index2: j) {
