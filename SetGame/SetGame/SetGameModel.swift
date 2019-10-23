@@ -232,12 +232,8 @@ struct SetGameModel {
     //return third property for given 2 to complete a set
     private func thirdPropertyForSet(prop1: CardProperty, prop2: CardProperty) -> CardProperty
     {
-        //return the same property for "same" set
-        if prop1 == prop2 {
-            return prop1
-        }
         //find the third property for "different" set
-        else {
+        if prop1 != prop2 {
             let propertyValues = CardProperty.allCases
             for p in propertyValues {
                 if p != prop1 && p != prop2 {
@@ -245,6 +241,7 @@ struct SetGameModel {
                 }
             }
         }
+        //return the same property for "same" set
         return prop1
     }
     

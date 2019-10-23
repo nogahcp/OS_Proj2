@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		250DA3FB23604D1100E6AE9B /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250DA3FA23604D1100E6AE9B /* SetCardView.swift */; };
 		251A99B0235EE36E00BDE6E1 /* SetBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A99A2235EE36E00BDE6E1 /* SetBoardView.swift */; };
 		251A99B1235EE36E00BDE6E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A99A3235EE36E00BDE6E1 /* ViewController.swift */; };
 		251A99B3235EE36E00BDE6E1 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A99A5235EE36E00BDE6E1 /* Card.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		250C7967234F331C00D0E10C /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		250DA3FA23604D1100E6AE9B /* SetCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardView.swift; sourceTree = "<group>"; };
 		251A99A2235EE36E00BDE6E1 /* SetBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetBoardView.swift; sourceTree = "<group>"; };
 		251A99A3235EE36E00BDE6E1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		251A99A5235EE36E00BDE6E1 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				251A99A2235EE36E00BDE6E1 /* SetBoardView.swift */,
+				250DA3FA23604D1100E6AE9B /* SetCardView.swift */,
 				251A99BB235EE6F600BDE6E1 /* Main.storyboard */,
 				251A99A3235EE36E00BDE6E1 /* ViewController.swift */,
 				251A99A5235EE36E00BDE6E1 /* Card.swift */,
@@ -219,6 +222,7 @@
 			files = (
 				251A99B1235EE36E00BDE6E1 /* ViewController.swift in Sources */,
 				251A99B0235EE36E00BDE6E1 /* SetBoardView.swift in Sources */,
+				250DA3FB23604D1100E6AE9B /* SetCardView.swift in Sources */,
 				251A99B7235EE36E00BDE6E1 /* AppDelegate.swift in Sources */,
 				251A99B9235EE36E00BDE6E1 /* SetGameModel.swift in Sources */,
 				251A99B3235EE36E00BDE6E1 /* Card.swift in Sources */,
