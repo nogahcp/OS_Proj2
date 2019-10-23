@@ -72,9 +72,9 @@ struct SetGameModel {
         //new card selected
         else if self.selectedCards.count < 3 {
             self.selectedNewCard(currCard: currCard)
-            //if selected card created set and the stack of card is empty, remove set from board
-            if self.choosenCardsState == .match && self.stackCards.count == 0 {
-                self.clearSelectedSet()
+            //if selected card created set, remove set from board
+            if self.choosenCardsState == .match {
+                self.startNewSetSelection(currCard: currCard)
             }
         }
         //new set start when 3 cards already selected
@@ -130,7 +130,7 @@ struct SetGameModel {
     mutating private func addCardsToBoard(at indexes: [Int]?) {
         var countAddedCards = 0
         while self.stackCards.count > 0 && countAddedCards < 3 {
-            var card = self.stackCards.randomElement()!
+            let card = self.stackCards.randomElement()!
             //replace previous card if possible
             if indexes != nil {
                 self.cardOnBoard.insert(card, at: indexes![countAddedCards])
@@ -146,7 +146,7 @@ struct SetGameModel {
     
     //check if selected cards are set -> replace them, else add three cards
     mutating func addThreeCardsButtonPressed() {
-        var indexes = self.clearSelectedSet()
+        let indexes = self.clearSelectedSet()
         self.addCardsToBoard(at: indexes)
     }
     
@@ -201,8 +201,8 @@ struct SetGameModel {
     
     //return 3 indexes of existing set, or nil if not exist
     func findSet() -> (Int, Int, Int)? {
-        for var i in 0..<cardOnBoard.count {
-            for var j in i+1..<cardOnBoard.count {
+        for i in 0..<cardOnBoard.count {
+            for j in i+1..<cardOnBoard.count {
                 if let k = thirdCardForSetExist(index1: i, index2: j) {
                     return (i, j, k)
                 }
