@@ -18,9 +18,13 @@ class ViewController: UIViewController {
     let cardShapeCountDict = [CardProperty.p1 : 1, CardProperty.p2 : 2, CardProperty.p3: 3]
     let borderColorDict : [CardState : CGColor] = [CardState.chosen : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), CardState.match : #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), CardState.mismatch : #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)]
     var hintIndexes: (Int, Int, Int)? = nil
+    var againstIphoneGame = false
+    var timer = Timer()
     
+    @IBOutlet weak var playerVSphoneTxt: UITextField!
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
     @IBOutlet weak var scoreText: UITextField!
+    
     @IBOutlet weak var setBoardView: SetBoardView! {
         didSet {
             //when tap - select card
@@ -28,6 +32,7 @@ class ViewController: UIViewController {
             setBoardView.addGestureRecognizer(tap)
         }
     }
+    
     @IBOutlet var screen: UIView! {
         didSet {
             //when swipe down - add three cards to board
@@ -91,6 +96,10 @@ class ViewController: UIViewController {
         self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0)
         //set score text
         self.scoreText.text = "Score: \(setGame.score)"
+        self.playerVSphoneTxt.text = "You: \(setGame.playerPoints) iPhone: \(setGame.phonePoints)"
+        //set scores hidden by game type
+        scoreText.isHidden = self.againstIphoneGame
+        playerVSphoneTxt.isHidden = !self.againstIphoneGame
     }
     
     //go through cardOnBoard and create cards for view (using grid)
@@ -140,8 +149,13 @@ class ViewController: UIViewController {
     //select card when card touched
     private func cardTouched(index: Int?) {
         if let cardIndex = index {
-            setGame.cardSelected(cardIndex: cardIndex)
+            setGame.cardSelected(cardIndex: cardIndex, isByPlayer: true)
             updateViewFromModel()
+            //if game against phone - after a match restart the timer for more random times
+            if self.againstIphoneGame, self.setGame.choosenCardsState == .match {
+                self.timer.invalidate()
+                self.makePhoneMove()
+            }
         }
         else {
             print("touch not on card")
@@ -159,6 +173,9 @@ class ViewController: UIViewController {
     
     @IBAction func NewGame(_ sender: Any) {
         self.setGame = SetGameModel()
+        //stop game with phone (if was befor)
+        self.againstIphoneGame = false
+        self.timer.invalidate()
         self.updateViewFromModel()
     }
     
@@ -168,6 +185,7 @@ class ViewController: UIViewController {
         self.updateViewFromModel()
     }
     
+
     //pop alert when game is ended
     func gameEnded() {
         let alert = UIAlertController(title: "Game Ended!", message: "your score: \(setGame.score)", preferredStyle: .alert)
@@ -176,7 +194,31 @@ class ViewController: UIViewController {
             self.setGame = SetGameModel()
             self.updateViewFromModel()
         }))
+        self.timer.invalidate()
         self.present(alert, animated: true)
+    }
+    
+    //start a new game against the iphone
+    @IBAction func playAgainstIPhone(_ sender: Any) {
+        self.againstIphoneGame = true
+        //start a new game
+        self.setGame = SetGameModel()
+        self.updateViewFromModel()
+        //make a move until player find a set
+        self.makePhoneMove()
+    }
+    
+    private func getRandomTime() -> Double {
+        return Double.random(in: 4.0...8.0)
+    }
+    
+    private func makePhoneMove() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: self.getRandomTime(), repeats: true, block: { timer in
+            self.view.isUserInteractionEnabled = false
+            self.setGame.makePhoneMove()
+            self.view.isUserInteractionEnabled = true
+            self.updateViewFromModel()
+        })
     }
 }
 

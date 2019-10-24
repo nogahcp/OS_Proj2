@@ -14,14 +14,16 @@ struct SetGameModel {
     var selectedCards: [Card]
     var score = 0
     var choosenCardsState = CardState.chosen
-
+    //points for game agianst phone
+    var phonePoints = 0
+    var playerPoints = 0
+    
+    
     var countCardsOnBoard: Int {
         get {
             var res = 0
-            for card in self.cardOnBoard {
-                if card != nil {
+            for _ in self.cardOnBoard {
                     res += 1
-                }
             }
             return res
         }
@@ -58,7 +60,7 @@ struct SetGameModel {
         }
     }
     
-    mutating func cardSelected(cardIndex: Int) {
+    mutating func cardSelected(cardIndex: Int, isByPlayer: Bool) {
         //if card selected not on board
         guard cardIndex < self.cardOnBoard.count else {
             print("ERROR: \(cardIndex) is out of range index in cardOnBoard")
@@ -74,6 +76,8 @@ struct SetGameModel {
             self.selectedNewCard(currCard: currCard)
             //if selected card created set, remove set from board
             if self.choosenCardsState == .match {
+                //if player made the move add point (for game against computer)
+                if isByPlayer { self.playerPoints += 1 }
                 self.startNewSetSelection(currCard: currCard)
             }
         }
@@ -89,7 +93,7 @@ struct SetGameModel {
         self.choosenCardsState = CardState.chosen
         self.score -= 1
     }
-    
+
     mutating private func selectedNewCard(currCard: Card) {
         self.selectedCards.append(currCard)
         //update score and state
@@ -215,10 +219,6 @@ struct SetGameModel {
     func thirdCardForSetExist(index1: Int, index2: Int) -> Int? {
         let card1 = self.cardOnBoard[index1]
         let card2 = self.cardOnBoard[index2]
-        //if cards are nill print error
-        guard card1 != nil && card2 != nil else {
-            return nil
-        }
         //create complete card for set
         let shape = thirdPropertyForSet(prop1: card1.shape, prop2: card2.shape)
         let color = thirdPropertyForSet(prop1: card1.color, prop2: card2.color)
@@ -255,6 +255,22 @@ struct SetGameModel {
             self.cardOnBoard.remove(element: card!)
         }
         self.cardOnBoard = tempCards
+    }
+    
+    //make a phone move
+    public mutating func makePhoneMove() {
+        //find set
+        if let set = self.findSet() {
+            //clear old selection if exist
+            self.selectedCards = []
+            self.choosenCardsState = .chosen
+            //select set
+            self.cardSelected(cardIndex: set.0, isByPlayer: false)
+            self.cardSelected(cardIndex: set.1, isByPlayer: false)
+            self.cardSelected(cardIndex: set.2, isByPlayer: false)
+            //add point to phone
+            self.phonePoints += 1
+        }
     }
     
 }

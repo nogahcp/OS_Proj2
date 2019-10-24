@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,97 +19,134 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="eZq-Z1-7Zr">
-                                <rect key="frame" x="100" y="720" width="214" height="142"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WaN-Uq-CYa">
+                                <rect key="frame" x="18" y="723" width="378" height="139"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CxW-MM-cLt">
-                                        <rect key="frame" x="0.0" y="0.0" width="214" height="35.5"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Deal 3 More Cards">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="system" size="20"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <connections>
-                                            <action selector="addThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P8q-xj-Kht"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSt-pC-sy5">
-                                        <rect key="frame" x="0.0" y="35.5" width="214" height="35.5"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Get Hint">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="system" size="20"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <connections>
-                                            <action selector="getHint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vPW-Wz-5BN"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iSv-hJ-llg">
-                                        <rect key="frame" x="0.0" y="71" width="214" height="35.5"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="New Game">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="system" size="20"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <connections>
-                                            <action selector="NewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ybX-6O-Rdq"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="CT2-ZW-61o">
+                                        <rect key="frame" x="0.0" y="0.0" width="378" height="79"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eZq-Z1-7Zr">
+                                                <rect key="frame" x="0.0" y="0.0" width="185" height="79"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CxW-MM-cLt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="185" height="35.5"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal">
+                                                            <attributedString key="attributedTitle">
+                                                                <fragment content="Deal 3 More Cards">
+                                                                    <attributes>
+                                                                        <font key="NSFont" metaFont="system" size="20"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="addThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P8q-xj-Kht"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSt-pC-sy5">
+                                                        <rect key="frame" x="0.0" y="43.5" width="185" height="35.5"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal">
+                                                            <attributedString key="attributedTitle">
+                                                                <fragment content="Get Hint">
+                                                                    <attributes>
+                                                                        <font key="NSFont" metaFont="system" size="20"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="getHint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vPW-Wz-5BN"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fAv-jH-0di">
+                                                <rect key="frame" x="193" y="0.0" width="185" height="79"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Mx-rK-eYy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="185" height="35.5"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal">
+                                                            <attributedString key="attributedTitle">
+                                                                <fragment content="Play Against The iPhone">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="17" name=".SFNSDisplay"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="playAgainstIPhone:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RtP-YO-5Ms"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iSv-hJ-llg">
+                                                        <rect key="frame" x="0.0" y="43.5" width="185" height="35.5"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal">
+                                                            <attributedString key="attributedTitle">
+                                                                <fragment content="New Game">
+                                                                    <attributes>
+                                                                        <font key="NSFont" metaFont="system" size="20"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingMiddle" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="NewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ybX-6O-Rdq"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="1Mx-rK-eYy" firstAttribute="height" secondItem="iSv-hJ-llg" secondAttribute="height" id="jIE-ao-mdg"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Score: 0" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZOv-od-KJw">
-                                        <rect key="frame" x="0.0" y="106.5" width="214" height="35.5"/>
+                                        <rect key="frame" x="0.0" y="79" width="378" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="You: 0  iPhone: 0" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="egO-E9-iXh">
+                                        <rect key="frame" x="0.0" y="109" width="378" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="CxW-MM-cLt" firstAttribute="height" secondItem="iSv-hJ-llg" secondAttribute="height" id="1ju-Bq-oQA"/>
-                                    <constraint firstItem="iSv-hJ-llg" firstAttribute="width" secondItem="ZOv-od-KJw" secondAttribute="width" id="KEx-Dp-S0G"/>
-                                    <constraint firstItem="CxW-MM-cLt" firstAttribute="width" secondItem="iSv-hJ-llg" secondAttribute="width" id="WBb-Dm-uOI"/>
-                                    <constraint firstItem="iSv-hJ-llg" firstAttribute="height" secondItem="ZOv-od-KJw" secondAttribute="height" id="wQE-zI-M1D"/>
-                                </constraints>
                             </stackView>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npZ-22-1SV" customClass="SetBoardView" customModule="SetGame" customModuleProvider="target">
-                                <rect key="frame" x="16" y="54" width="382" height="636"/>
+                                <rect key="frame" x="16" y="54" width="382" height="644"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eZq-Z1-7Zr" secondAttribute="bottom" id="5Nl-H6-CPY"/>
-                            <constraint firstItem="CxW-MM-cLt" firstAttribute="top" secondItem="npZ-22-1SV" secondAttribute="bottom" constant="30" id="Lfh-Fr-gqX"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eZq-Z1-7Zr" secondAttribute="trailing" constant="100" id="Qzd-a8-lWy"/>
-                            <constraint firstItem="eZq-Z1-7Zr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="XzV-46-19h"/>
+                            <constraint firstItem="WaN-Uq-CYa" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="8t8-aP-7Er"/>
+                            <constraint firstItem="npZ-22-1SV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="9rh-uf-6o7"/>
                             <constraint firstItem="npZ-22-1SV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="dgV-2t-lpz"/>
-                            <constraint firstItem="npZ-22-1SV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="muu-b9-ja6"/>
+                            <constraint firstItem="CT2-ZW-61o" firstAttribute="top" secondItem="npZ-22-1SV" secondAttribute="bottom" constant="25" id="kii-VU-umh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="npZ-22-1SV" secondAttribute="trailing" constant="16" id="s9E-ny-Iv9"/>
+                            <constraint firstItem="WaN-Uq-CYa" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="xME-nH-HqY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="dealThreeMoreCardsButton" destination="CxW-MM-cLt" id="4Jp-WG-j4c"/>
+                        <outlet property="playerVSphoneTxt" destination="egO-E9-iXh" id="Ibe-na-9lT"/>
                         <outlet property="scoreText" destination="ZOv-od-KJw" id="RoX-xU-hdS"/>
                         <outlet property="screen" destination="8bC-Xf-vdC" id="tX0-cp-VML"/>
                         <outlet property="setBoardView" destination="npZ-22-1SV" id="Q8D-mX-enH"/>

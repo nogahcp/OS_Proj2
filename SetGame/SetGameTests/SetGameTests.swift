@@ -30,14 +30,14 @@ class SetGameTests: XCTestCase {
     
     //check if afted cardSelected card is in selected array
     func testCardSelected() {
-        setGame.cardSelected(cardIndex: 0)
+        setGame.cardSelected(cardIndex: 0, isByPlayer: true)
         XCTAssert(setGame.selectedCards.contains(setGame.cardOnBoard[0]))
     }
     
     //check if afted cardSelected twice card is not in selected array
     func testCardDeselect() {
-        setGame.cardSelected(cardIndex: 0)
-        setGame.cardSelected(cardIndex: 0)
+        setGame.cardSelected(cardIndex: 0, isByPlayer: true)
+        setGame.cardSelected(cardIndex: 0, isByPlayer: true)
         XCTAssert(!setGame.selectedCards.contains(setGame.cardOnBoard[0]))
     }
     
@@ -62,10 +62,10 @@ class SetGameTests: XCTestCase {
     
     //after selecting 4 different cards, selectedCards contains only the last card added
     func testSelectFourCards() {
-        setGame.cardSelected(cardIndex: 0)
-        setGame.cardSelected(cardIndex: 1)
-        setGame.cardSelected(cardIndex: 2)
-        setGame.cardSelected(cardIndex: 3)
+        setGame.cardSelected(cardIndex: 0, isByPlayer: true)
+        setGame.cardSelected(cardIndex: 1, isByPlayer: true)
+        setGame.cardSelected(cardIndex: 2, isByPlayer: true)
+        setGame.cardSelected(cardIndex: 3, isByPlayer: true)
         XCTAssert(setGame.selectedCards.count == 1 && setGame.selectedCards.contains(setGame.cardOnBoard[3]))
     }
     
@@ -125,9 +125,13 @@ class SetGameTests: XCTestCase {
     func testHint() {
         let setOfCards = setGame.getHint()
         if setOfCards != nil {
-            setGame.cardSelected(cardIndex: setOfCards!.0)
-            setGame.cardSelected(cardIndex: setOfCards!.1)
-            setGame.cardSelected(cardIndex: setOfCards!.2)
+//            setGame.cardSelected(cardIndex: setOfCards!.0, isByPlayer: true)
+//            setGame.cardSelected(cardIndex: setOfCards!.1, isByPlayer: true)
+//            setGame.cardSelected(cardIndex: setOfCards!.2, isByPlayer: true)
+            setGame.selectedCards.append(setGame.cardOnBoard[setOfCards!.0])
+            setGame.selectedCards.append(setGame.cardOnBoard[setOfCards!.1])
+            setGame.selectedCards.append(setGame.cardOnBoard[setOfCards!.2])
+
             XCTAssert(setGame.isSet())
         }
         XCTAssert(true)
