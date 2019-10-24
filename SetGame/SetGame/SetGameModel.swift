@@ -258,7 +258,7 @@ struct SetGameModel {
     }
     
     //make a phone move
-    public mutating func makePhoneMove() {
+    public mutating func makePhoneMove() -> Bool {
         //find set
         if let set = self.findSet() {
             //clear old selection if exist
@@ -270,7 +270,9 @@ struct SetGameModel {
             self.cardSelected(cardIndex: set.2, isByPlayer: false)
             //add point to phone
             self.phonePoints += 1
+            return true
         }
+        return false
     }
     
 }

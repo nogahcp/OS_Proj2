@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     var hintIndexes: (Int, Int, Int)? = nil
     var againstIphoneGame = false
     var timer = Timer()
+    var iPhoneFace = "🤔"
     
     @IBOutlet weak var playerVSphoneTxt: UITextField!
     @IBOutlet weak var dealThreeMoreCardsButton: UIButton!
@@ -96,7 +97,7 @@ class ViewController: UIViewController {
         self.dealThreeMoreCardsButton.isEnabled = (setGame.stackCards.count > 0)
         //set score text
         self.scoreText.text = "Score: \(setGame.score)"
-        self.playerVSphoneTxt.text = "You: \(setGame.playerPoints) iPhone: \(setGame.phonePoints)"
+        self.playerVSphoneTxt.text = "You: \(setGame.playerPoints) iPhone: \(setGame.phonePoints)  \(self.iPhoneFace)"
         //set scores hidden by game type
         scoreText.isHidden = self.againstIphoneGame
         playerVSphoneTxt.isHidden = !self.againstIphoneGame
@@ -171,7 +172,7 @@ class ViewController: UIViewController {
         self.updateViewFromModel()
     }
     
-    @IBAction func NewGame(_ sender: Any) {
+    @IBAction func NewGame(_ sender: Any?) {
         self.setGame = SetGameModel()
         //stop game with phone (if was befor)
         self.againstIphoneGame = false
@@ -188,14 +189,32 @@ class ViewController: UIViewController {
 
     //pop alert when game is ended
     func gameEnded() {
-        let alert = UIAlertController(title: "Game Ended!", message: "your score: \(setGame.score)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { action in
-            self.setGame = SetGameModel()
-            self.updateViewFromModel()
-        }))
-        self.timer.invalidate()
-        self.present(alert, animated: true)
+        var message = "your score: \(setGame.score)"
+        //different message for game against phone
+        if self.againstIphoneGame {
+            switch setGame.playerPoints {
+            case let player where player > setGame.phonePoints:
+                message = "You won! you: \(player) iPhone: \(setGame.phonePoints)"
+                self.iPhoneFace = "😢"
+            case let player where player < setGame.phonePoints:
+                message = "iPhone won! you: \(player) iPhone: \(setGame.phonePoints)"
+                self.iPhoneFace = "😂"
+            default:
+                message = "Its a tie!"
+                self.iPhoneFace = "😬"
+            }
+        }
+        self.updateViewFromModel()
+        _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {_ in
+            let alert = UIAlertController(title: "Game Ended!", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { action in
+                self.NewGame(nil)
+            }))
+            self.timer.invalidate()
+            self.present(alert, animated: true)
+        })
+        
     }
     
     //start a new game against the iphone
@@ -209,15 +228,22 @@ class ViewController: UIViewController {
     }
     
     private func getRandomTime() -> Double {
-        return Double.random(in: 4.0...8.0)
+        return Double.random(in: 5.0...10.0)
     }
     
     private func makePhoneMove() {
         self.timer = Timer.scheduledTimer(withTimeInterval: self.getRandomTime(), repeats: true, block: { timer in
-            self.view.isUserInteractionEnabled = false
-            self.setGame.makePhoneMove()
-            self.view.isUserInteractionEnabled = true
-            self.updateViewFromModel()
+            if self.setGame.makePhoneMove() {
+                self.iPhoneFace = "😁"
+                self.updateViewFromModel()
+                _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: {_ in
+                    self.view.isUserInteractionEnabled = false
+                    self.setGame.makePhoneMove()
+                    self.view.isUserInteractionEnabled = true
+                    self.iPhoneFace = "🤔"
+                    self.updateViewFromModel()
+                })
+            }
         })
     }
 }
